@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react";
 import Nav from "../components/Nav";
 import Trade from "../components/Trade";
-import TradingViewChart from "../components/TradingViewChart";
+
 import { fetchForexData } from "../config/api";
+import TradingViewChart from "../components/TradingViewChart";
 
 const Index: React.FC = () => {
   const [forexSelection, setForexSelection] = useState(true);
@@ -10,7 +11,7 @@ const Index: React.FC = () => {
     from_currency: "EUR",
     to_currency: "USD",
   });
-  const [currentPrice, setCurrentPrice] = useState(null);
+  const [currentPrice, setCurrentPrice] = useState<string  | null>(null);
   const [balance, setBalance] = useState(5000);
 
   useEffect(() => {
@@ -34,7 +35,8 @@ const Index: React.FC = () => {
           <div className="flex">
             <div className="w-[25%] bg-pink-500 p-4">one</div>
             <div className="w-[75%] bg-red-500 p-4">
-              <TradingViewChart />
+              <TradingViewChart fromCurrency={`EUR`}
+          toCurrency={`USD`}/>
             </div>
           </div>
         </div>

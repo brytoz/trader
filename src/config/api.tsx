@@ -24,18 +24,21 @@ export const fetchAvailablePairs = async () => {
     { from_currency: 'EUR', to_currency: 'CAD' },
     { from_currency: 'EUR', to_currency: 'AUD' },
     { from_currency: 'GBP', to_currency: 'CAD' },
-    { from_currency: 'USD', to_currency: 'MXN' }
+    { from_currency: 'USD', to_currency: 'MXN' },
   ];
   
 
   return pairs;
 };
 
+ 
 // Fetch real-time forex data
-export const fetchForexData = async (fromCurrency, toCurrency) => {
+export const fetchForexData = async (fromCurrency: string, toCurrency: string ): Promise<Record<string, string>>=> {
   const { data } = await axios.get(
     `https://www.alphavantage.co/query?function=CURRENCY_EXCHANGE_RATE&from_currency=${fromCurrency}&to_currency=${toCurrency}&apikey=${API_KEY}`
   );
+
+  console.log(data['Realtime Currency Exchange Rate'])
   return data['Realtime Currency Exchange Rate'];
 };
 

@@ -1,20 +1,29 @@
 import { useEffect, useRef, useState } from 'react';
-import {fetchForexData} from '../config/api'; // Import the Alpha Vantage API function
+import { fetchForexData } from '../config/api';
+
+
+declare global {
+  interface Window {
+    TradingView? : {
+          widget: new (options: any) => {remove : () => void}
+    }
+  }
+}
 
 interface TradingViewChartProps {
   fromCurrency:string, toCurrency:string 
 }
 
 
-const TradingViewChart: React.FC<TradingViewChartProps> = ({fromCurrency, toCurrency}) => {
-  const chartContainerRef = useRef(null);
-  const [price, setPrice] = useState(null);
-  const [error, setError] = useState(null); // State for error handling
+const TradingViewChart: React.FC<TradingViewChartProps> = ({fromCurrency, toCurrency}) => { 
+  const chartContainerRef = useRef<HTMLDivElement>(null);
+  const [price, setPrice] = useState<string | object | null>(null);
+  const [error, setError] = useState<string | null>(null);  
 
   useEffect(() => {
     if (window.TradingView) {
       const widget = new window.TradingView.widget({
-        container_id: chartContainerRef.current.id,
+        container_id: chartContainerRef.current?.id,
         symbol: `${fromCurrency}${toCurrency}`,
         interval: 'D',
         timezone: 'Etc/UTC',
@@ -27,7 +36,7 @@ const TradingViewChart: React.FC<TradingViewChartProps> = ({fromCurrency, toCurr
         details: true,
       });
 
-      return () => widget.remove(); // Cleanup on component unmount
+      return () => widget.remove();  
     }
   }, [fromCurrency, toCurrency]);
 
