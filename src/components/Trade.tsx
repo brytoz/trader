@@ -120,7 +120,8 @@ const Trade: React.FC = () => {
       </div>
       <div className="w-full">
         <button className=" w-full bg-black/90 rounded-lg py-2 px-4  font-bold text-center bg-black text-white cursor-pointer shadow-sm ">
-          Buy {"  "}1.46678
+          {buyOrder ? "Buy" : "Sell"} <span className="text-xs">@</span> {"  "}
+          1.46678
         </button>
       </div>
     </div>

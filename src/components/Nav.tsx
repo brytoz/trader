@@ -51,14 +51,14 @@ const Nav: React.FC<NavProps> = () => {
             <div className=" text-xs hidden md:block transition-all duration-500 ">
               Margin Level
             </div>
-            <div className="text-xs">$900</div>
+            <div className="text-xs">50%</div>
           </span>
 
           <span className="">
             <div className=" text-xs hidden md:block transition-all duration-500 ">
               P/L
             </div>
-            <div className="text-xs">$900</div>
+            <div className="text-xs flex items-center"><TrendingUp className="w-4 h-4 mr-1 text-green-600" /> $900</div>
           </span>
 
           <button
