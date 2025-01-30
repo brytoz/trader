@@ -1,13 +1,21 @@
 import { ArrowUpDown } from "lucide-react";
 import React, { useState } from "react";
 
-const Trade: React.FC = () => {
-  const [orderType, setOrderType] = useState("market");
-  const [buyOrder, setBuyOrder] = useState(true);
+interface TradeProps {
+
+    pair: string,
+    buyAmount: number,
+    sellAmount: number,
+
+}
+
+const Trade: React.FC<TradeProps> = ({sellAmount, buyAmount, pair }) => {
+  const [orderType, setOrderType] = useState<string>("market");
+  const [buyOrder, setBuyOrder] = useState<boolean>(true);
 
   return (
     <div className="w-full rounded h-auto border border-gray-200 shadow p-6 flex flex-col gap-6 bg-white text-black">
-      <div className="text-xl font-extrabold text-black">Trade</div>
+      <div className="text-xl font-extrabold text-black">Trade {pair}</div>
 
       <div className="flex justify-between items-center  shadow-sm rounded ">
         <div
@@ -32,20 +40,7 @@ const Trade: React.FC = () => {
           Limit
         </div>
       </div>
-      <div className="w-full">
-        <select
-          name=""
-          id=""
-          className="rounded-lg w-full shadow-xs py-2 px-4 border border-gray-200"
-        >
-          <option className="pr-2" value="one">
-            Select Pairs
-          </option>
-          <option value="one">ETH/DOGE</option>
-          <option value="one">ETH/BTC</option>
-          <option value="one">ETH/BNB</option>
-        </select>
-      </div>
+     
 
       <div className="flex w-full justify-between space-x-12">
         <div
@@ -54,7 +49,7 @@ const Trade: React.FC = () => {
             buyOrder ? "text-green-200  bg-green-600" : "text-black  bg-white"
           }`}
         >
-          Buy ETH
+          Buy
         </div>
         <div
           onClick={() => setBuyOrder(false)}
@@ -62,7 +57,7 @@ const Trade: React.FC = () => {
             !buyOrder ? "text-red-200  bg-red-600" : "text-black  bg-white"
           }`}
         >
-          Sell ETH
+          Sell
         </div>
       </div>
 
@@ -120,8 +115,12 @@ const Trade: React.FC = () => {
       </div>
       <div className="w-full">
         <button className=" w-full bg-black/90 rounded-lg py-2 px-4  font-bold text-center bg-black text-white cursor-pointer shadow-sm ">
-          {buyOrder ? "Buy" : "Sell"} <span className="text-xs">@</span> {"  "}
-          1.46678
+          {buyOrder ? "Buy" : "Sell"}
+        {
+            orderType === "market" ?
+            buyOrder ? buyAmount : sellAmount : 
+            ""
+        }
         </button>
       </div>
     </div>

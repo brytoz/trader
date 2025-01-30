@@ -1,10 +1,16 @@
 import axios from 'axios';
 
-const API_KEY = '58ASQZO5MFVHYIRC'; // Replace with your Alpha Vantage API key
+const API_KEY = '58ASQZO5MFVHYIRC';  
 
- 
-export const fetchAvailablePairs = async () => {
-  const pairs = [
+export type ForexPair = {
+  from_currency: string;
+  to_currency: string;
+};
+
+
+export const fetchAvailablePairs = async (): Promise<ForexPair[]> => {
+  const pairs: ForexPair[]  = [
+    { from_currency: 'ETH', to_currency: 'BTC' },
     { from_currency: 'EUR', to_currency: 'USD' },
     { from_currency: 'GBP', to_currency: 'USD' },
     { from_currency: 'USD', to_currency: 'JPY' },
