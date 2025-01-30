@@ -18,8 +18,8 @@ const Sidebar: React.FC<SidebarProps> = ({ setSelectedSymbol }) => {
 
   const pairs = data || [];
   return (
-    <div className=" w-full bg-gray-900 text-white p-4 overflow-y-scroll h-screen">
-      <h2 className="text-xl mb-4">Markets</h2>
+    <div className=" w-full bg-gray-900 text-white p-4 overflow-y-scroll h-1/2 bg-green-900">
+      <h2 className="mb-4 font-extrabold text-base">Available Markets</h2>
       <div className="flex item-center justify-around text-sm">
 
       <div
@@ -42,17 +42,17 @@ const Sidebar: React.FC<SidebarProps> = ({ setSelectedSymbol }) => {
       {pairs.map((pair, index) => (
         <div
           key={index}
-          className="my-6 flex items-center justify-center space-x-2 "
+          onClick={() => setSelectedSymbol(pair)}
+          className="my-2 flex items-center justify-center space-x-2 rounded shadow-sm bg-gray-800 text-xs py-2 cursor-pointer transition-all duration-500 hover:scale-110"
         >
-          <h3 className="text-xs">
-            {pair.from_currency}/{pair.to_currency}
-          </h3>
-          <button
-            onClick={() => setSelectedSymbol(pair)}
-            className="text-xs cursor-pointer bg-[conic-gradient(at_bottom_right,_var(--tw-gradient-stops))] from-red-400 via-red-900 to-green-600 hover:bg-blue-700 px-4 py-1 rounded"
+          <div className="text-[0.6rem]">Low</div>
+          <div className="uppercase font-bold">{pair.from_currency}{pair.to_currency}</div>
+           
+          <div
+             className="text-[0.6rem]"
           >
-            Trade
-          </button>
+            High
+          </div>
         </div>
       ))}
     </div>
