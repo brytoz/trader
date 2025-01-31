@@ -3,33 +3,36 @@ import axios from "axios";
 const API_KEY = "58ASQZO5MFVHYIRC";
 
 export type ForexPair = {
+  low: string;
+  high:string;
   from_currency: string;
   to_currency: string;
 };
 
 export const fetchAvailablePairs = async (): Promise<ForexPair[]> => {
   const pairs: ForexPair[] = [
-    { from_currency: "ETH", to_currency: "BTC" },
-    { from_currency: "EUR", to_currency: "USD" },
-    { from_currency: "GBP", to_currency: "USD" },
-    { from_currency: "USD", to_currency: "JPY" },
-    { from_currency: "AUD", to_currency: "USD" },
-    { from_currency: "USD", to_currency: "CAD" },
-    { from_currency: "NZD", to_currency: "USD" },
-    { from_currency: "EUR", to_currency: "GBP" },
-    { from_currency: "EUR", to_currency: "JPY" },
-    { from_currency: "GBP", to_currency: "JPY" },
-    { from_currency: "AUD", to_currency: "JPY" },
-    { from_currency: "USD", to_currency: "CHF" },
-    { from_currency: "EUR", to_currency: "CHF" },
-    { from_currency: "GBP", to_currency: "CHF" },
-    { from_currency: "NZD", to_currency: "JPY" },
-    { from_currency: "AUD", to_currency: "NZD" },
-    { from_currency: "CAD", to_currency: "JPY" },
-    { from_currency: "EUR", to_currency: "CAD" },
-    { from_currency: "EUR", to_currency: "AUD" },
-    { from_currency: "GBP", to_currency: "CAD" },
-    { from_currency: "USD", to_currency: "MXN" },
+    { low: "393.021", high:"842.302", from_currency: "USD", to_currency: "NGN" },
+    { low: "393.021", high:"842.302", from_currency: "ETH", to_currency: "BTC" },
+    { low: "393.021", high:"842.302", from_currency: "EUR", to_currency: "USD" },
+    { low: "393.021", high:"842.302", from_currency: "GBP", to_currency: "USD" },
+    { low: "393.021", high:"842.302", from_currency: "USD", to_currency: "JPY" },
+    { low: "393.021", high:"842.302", from_currency: "AUD", to_currency: "USD" },
+    { low: "393.021", high:"842.302", from_currency: "USD", to_currency: "CAD" },
+    { low: "393.021", high:"842.302", from_currency: "NZD", to_currency: "USD" },
+    { low: "393.021", high:"842.302", from_currency: "EUR", to_currency: "GBP" },
+    { low: "393.021", high:"842.302", from_currency: "EUR", to_currency: "JPY" },
+    { low: "393.021", high:"842.302", from_currency: "GBP", to_currency: "JPY" },
+    { low: "393.021", high:"842.302", from_currency: "AUD", to_currency: "JPY" },
+    { low: "393.021", high:"842.302", from_currency: "USD", to_currency: "CHF" },
+    { low: "393.021", high:"842.302", from_currency: "EUR", to_currency: "CHF" },
+    { low: "393.021", high:"842.302", from_currency: "GBP", to_currency: "CHF" },
+    { low: "393.021", high:"842.302", from_currency: "NZD", to_currency: "JPY" },
+    { low: "393.021", high:"842.302", from_currency: "AUD", to_currency: "NZD" },
+    { low: "393.021", high:"842.302", from_currency: "CAD", to_currency: "JPY" },
+    { low: "393.021", high:"842.302", from_currency: "EUR", to_currency: "CAD" },
+    { low: "393.021", high:"842.302", from_currency: "EUR", to_currency: "AUD" },
+    { low: "393.021", high:"842.302", from_currency: "GBP", to_currency: "CAD" },
+    { low: "393.021", high:"842.302", from_currency: "USD", to_currency: "MXN" },
   ];
 
   return pairs;

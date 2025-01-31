@@ -12,7 +12,7 @@ const Nav: React.FC<NavProps> = () => {
         <div className="w-1/5">
           <Link to="/" className="flex items-center ">
             <span className="ml-2 textbase md:text-2xl font-black logo-color">
-              UPTRISE
+              BRYTOZ
             </span>
           </Link>
         </div>

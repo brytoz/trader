@@ -45,13 +45,11 @@ export const useTradingStore = create<TradingState>((set) => ({
   volume: 0.01,
   openPrice: "1000",
 
-  // Setter functions with validation
   setTakeProfit: (value) => set({ takeProfit: validateNumber(value) }),
   setStopLoss: (value) => set({ stopLoss: validateNumber(value) }),
   setVolume: (value) => set({ volume: validateVolume(value) }),
   setOpenPrice: (value) => set({ openPrice: validateNumber(value) }),
 
-  // Increment/Decrement functions
   incrementTakeProfit: () =>
     set((state) => {
       const num = parseFloat(state.takeProfit || "0");

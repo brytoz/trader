@@ -111,6 +111,16 @@ const Trade: React.FC<TradeProps> = ({ sellAmount, buyAmount, pair }) => {
           <div className="text-[0.6rem]">1000 USD</div>
         </div>
       </div>
+      {orderType === "market" && <div className="-my-2 flex flex-col  gap-2 bg-gray-800 p-2 rounded-lg   mx-auto w-full text-[0.6rem]">
+        <div className="flex justify-between px-1">
+          <div>Required Margin</div>
+          <div>$30</div>
+        </div>
+        <div className="flex justify-between px-1">
+          <div>Free Margin</div>
+          <div>$50054</div>
+        </div>
+      </div>}
       {orderType === "limit" ? (
         <div>
           <div>Open Price</div>
@@ -197,7 +207,6 @@ const Trade: React.FC<TradeProps> = ({ sellAmount, buyAmount, pair }) => {
                 : "hidden"
             }`}
           >
-
             <button
               className="p-2 bg-gray-700 rounded-md hover:bg-gray-600 cursor-pointer"
               onClick={decrementStopLoss}

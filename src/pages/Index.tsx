@@ -1,10 +1,14 @@
 import React, { useState } from "react";
-import Nav from "../components/Nav";
+import Nav from "../components/nav/Nav";
 import Trade from "../components/Trade";
 import { useQuery } from "@tanstack/react-query";
 import TradingViewChart from "../components/TradingViewChart";
-import Sidebar from "../components/Sidebar";
+import Markets from "../components/Markets";
 import { fetchMarketData } from "../config/api";
+import BottomNav from "../components/nav/BottomNav";
+import ChartLoader from "../components/loaders/ChartLoader";
+import TradeLoader from "../components/loaders/TradeLoader";
+import MarketsLoader from "../components/loaders/MarketsLoader";
 
 const Index: React.FC = () => {
   const [selectedSymbol, setSelectedSymbol] = useState({
@@ -14,36 +18,45 @@ const Index: React.FC = () => {
   // const [currentPrice, setCurrentPrice] = useState<string  | null>(null);
   // const [balance, setBalance] = useState(5000);
 
-  const { data, isLoading, error } = useQuery({
-    queryKey: ["fetchMarketData"],
-    queryFn: () => fetchMarketData(),
-  });
+  // const { data, isLoading, error } = useQuery({
+  //   queryKey: ["fetchMarketData"],
+  //   queryFn: () => fetchMarketData(),
+  // });
 
   return (
     <div>
-      <Nav />
+      <div className="bg-[#242424]">
 
-      <div className="w-full flex h-[70%]">
+      <Nav />
+      </div>
+
+      <div className="one w-full flex h-[70vh] ">
         <div className="w-[70%] flex h-auto">
-          <div className="w-[75%] bg-red-500 py-4">
+          <div className="w-[75%]  py-4">
             <TradingViewChart
               fromCurrency={selectedSymbol.from_currency}
               toCurrency={selectedSymbol.to_currency}
             />
+            {/* <ChartLoader /> */}
           </div>
-          <div className="w-[25%] bg-pi nk-500 p-4 h-auto overflow-y-scroll">
-            <Sidebar setSelectedSymbol={setSelectedSymbol} />
+          <div className="w-[25%] py-4 h-auto overflow-y-scroll">
+            <Markets setSelectedSymbol={setSelectedSymbol} />
+            {/* <MarketsLoader /> */}
           </div>
         </div>
-        <div className="w-[30%] bg-green-500 p-8 px-4  h-auto ">
+        <div className="w-[30%]  p-8 px-4  h-auto overflow-y-scroll">
           <Trade
             buyAmount={400}
             pair={`${selectedSymbol.from_currency}/${selectedSymbol.to_currency}`}
             sellAmount={500}
           />
+
+          {/* <TradeLoader /> */}
         </div>
       </div>
-      <div className="w-full bg-yellow-900 h-96">dsds</div>
+
+      <BottomNav />
+
     </div>
   );
 };

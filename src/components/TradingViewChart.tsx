@@ -19,29 +19,7 @@ const TradingViewChart: React.FC<TradingViewChartProps> = ({fromCurrency, toCurr
   const [price, setPrice] = useState<string | object | null>(null);
   const [error, setError] = useState<string | null>(null);  
 
-  // useEffect(() => {
-  //   if (window.TradingView && chartContainerRef.current) {
 
-  //     const widget = new window.TradingView.widget({
-  //       container_id: chartContainerRef.current.id,
-  //       symbol: `${fromCurrency}${toCurrency}`,
-  //       interval: 'D',
-  //       timezone: 'Etc/UTC',
-  //       theme: 'dark',
-  //       style: '1',
-  //       locale: 'en',
-  //       toolbar_bg: '#f1f3f6',
-  //       enable_publishing: false,
-  //       allow_symbol_change: true,
-  //       details: true,
-  //     });
-
-
-  //     return () => widget.remove();  
-  //   }
-  // }, [fromCurrency, toCurrency]);
-
-  // Fetch the real-time data from Alpha Vantage and update the chart
   // useEffect(() => {
   //   const fetchAndUpdate = async () => {
   //     try {
@@ -61,7 +39,7 @@ const TradingViewChart: React.FC<TradingViewChartProps> = ({fromCurrency, toCurr
   //   };
 
   //   fetchAndUpdate();
-  //   const intervalId = setInterval(fetchAndUpdate, 60000); // Poll every 60 seconds
+  //   const intervalId = setInterval(fetchAndUpdate, 60000);  
 
   //   return () => clearInterval(intervalId); 
   // }, [fromCurrency, toCurrency]);
@@ -97,10 +75,9 @@ const TradingViewChart: React.FC<TradingViewChartProps> = ({fromCurrency, toCurr
     document.body.appendChild(script);
 
     return () => {
-      // Cleanup: Remove the script and any existing widget
       document.body.removeChild(script);
       if (chartContainerRef.current) {
-        chartContainerRef.current.innerHTML = ''; // Clear the container
+        chartContainerRef.current.innerHTML = '';  
       }
     };
   }, [fromCurrency, toCurrency]);
