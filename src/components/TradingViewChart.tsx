@@ -17,7 +17,7 @@ interface TradingViewChartProps {
 const TradingViewChart: React.FC<TradingViewChartProps> = ({fromCurrency, toCurrency}) => { 
   const chartContainerRef = useRef<HTMLDivElement>(null);
   // const [price, setPrice] = useState<string | object | null>(null);
-  const [error, setError] = useState<string | null>(null);  
+  // const [error, setError] = useState<string | null>(null);  
 
 
   // useEffect(() => {
@@ -84,7 +84,7 @@ const TradingViewChart: React.FC<TradingViewChartProps> = ({fromCurrency, toCurr
   return (
     <div className="w-full px-2">
       {/* <h2 className='text-white/60'>{fromCurrency}/{toCurrency} Real-Time Price: {price ? price : 'Loading...'}</h2> */}
-      {error && <p className="text-red-500">{error}</p>}
+      {/* {error && <p className="text-red-500">{error}</p>} */}
       <div id="tradingview-chart" ref={chartContainerRef} className="w-full h-full px-[-48px]"></div>
     </div>
   );
