@@ -16,7 +16,7 @@ interface TradingViewChartProps {
 
 const TradingViewChart: React.FC<TradingViewChartProps> = ({fromCurrency, toCurrency}) => { 
   const chartContainerRef = useRef<HTMLDivElement>(null);
-  const [price, setPrice] = useState<string | object | null>(null);
+  // const [price, setPrice] = useState<string | object | null>(null);
   const [error, setError] = useState<string | null>(null);  
 
 

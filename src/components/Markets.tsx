@@ -1,13 +1,13 @@
 import { useQuery } from "@tanstack/react-query";
 import { fetchAvailablePairs, ForexPair } from "../config/api";
-import { useState } from "react";
+// import { useState } from "react";
 
 interface MarketsProps {
   setSelectedSymbol: (pair: ForexPair) => void;
 }
 
 const Markets: React.FC<MarketsProps> = ({ setSelectedSymbol }) => {
-  const [forexSelection, setForexSelection] = useState<boolean>(true);
+  // const [forexSelection, setForexSelection] = useState<boolean>(true);
   const { data, isLoading, error } = useQuery<ForexPair[]>({
     queryKey: ["availablePairs"],
     queryFn: () => fetchAvailablePairs(),
