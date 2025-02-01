@@ -20,11 +20,13 @@ export const useNavigationStore = create<NavigationState>((set) => ({
     set(() => ({
       orderNav: true,
       historyNav: false,
+      closedNav: false, 
     })),
   setHistoryNav: () =>
     set(() => ({
       orderNav: false,
       historyNav: true,
+      closedNav: false, 
     })),
 
   setCloseNav: () =>

@@ -11,8 +11,10 @@ const BottomNav: React.FC = () => {
     usePositionsStore();
   const { historyNav, orderNav,closedNav, setHistoryNav, setOrderNav, setCloseNav } =
     useNavigationStore();
+
+    console.log(closedNav)
   return (
-    <div className={`w-full mt-4 overflow-y-scroll bg-gray-900 ${closedNav ? "h-auto" :"h-[30rem]"}`}>
+    <div className={`w-full mt-4 overflow-y-scroll bg-gray-900 ${closedNav ? "h-[25vh]" :"h-[30rem]"}`}>
       <div className="  w-full flex justify-around bg-gray-900 shadow-sm border border-gray-900 py-1 px-4  ">
         <div
           onClick={setOrderNav}
@@ -35,7 +37,7 @@ const BottomNav: React.FC = () => {
       {orderNav && (
         <Fragment>
           <div className="flex justify-between px-12 py-3">
-          <div className=" font-bold  text-xl">Positions {open && "- Open"} {pending && "- Pending"} {closed && "- Closed"} </div>
+          <div className=" font-bold  text-xl transition-all duration-500 ">Positions {open && "- Open"} {pending && "- Pending"} {closed && "- Closed"} </div>
           <div onClick={setCloseNav} className=" font-bold  text-sm flex items-center bg-black tex p-1 rounded px-3 cursor-pointer"> close <CircleX /> </div>
           </div>
             
