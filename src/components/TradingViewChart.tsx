@@ -39,7 +39,7 @@ const TradingViewChart: React.FC<TradingViewChartProps> = ({fromCurrency, toCurr
   //   };
 
   //   fetchAndUpdate();
-  //   const intervalId = setInterval(fetchAndUpdate, 60000);  
+  //   const intervalId = setInterval(fetchAndUpdate, 1000);  
 
   //   return () => clearInterval(intervalId); 
   // }, [fromCurrency, toCurrency]);
