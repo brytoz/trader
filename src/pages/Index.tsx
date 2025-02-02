@@ -1,14 +1,14 @@
 import React, { useState } from "react";
 import Nav from "../components/nav/Nav";
 import Trade from "../components/Trade";
-import { useQuery } from "@tanstack/react-query";
+// import { useQuery } from "@tanstack/react-query";
 import TradingViewChart from "../components/TradingViewChart";
 import Markets from "../components/Markets";
-import { fetchMarketData } from "../config/api";
+// import { fetchMarketData } from "../config/api";
 import BottomNav from "../components/nav/BottomNav";
-import ChartLoader from "../components/loaders/ChartLoader";
-import TradeLoader from "../components/loaders/TradeLoader";
-import MarketsLoader from "../components/loaders/MarketsLoader";
+// import ChartLoader from "../components/loaders/ChartLoader";
+// import TradeLoader from "../components/loaders/TradeLoader";
+// import MarketsLoader from "../components/loaders/MarketsLoader";
 
 const Index: React.FC = () => {
   const [selectedSymbol, setSelectedSymbol] = useState({

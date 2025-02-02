@@ -29,7 +29,7 @@ export const useNavigationStore = create<NavigationState>((set) => ({
       closedNav: false, 
     })),
 
-  setCloseNav: () =>
+  setCloseNav: () => 
     set(() => ({
       orderNav: false,
       historyNav: false,  
