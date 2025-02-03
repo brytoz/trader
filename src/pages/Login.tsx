@@ -5,6 +5,7 @@ import { AiFillLock } from "react-icons/ai";
 import { FaUser } from "react-icons/fa";
 import { ToastContainer } from "react-toastify";
 import { toastService } from "../service/toastMsg";
+import socketService from "../service/socketService";
 
 const Login = () => {
   const [email, setEmail] = useState<string>("");
@@ -22,12 +23,17 @@ const Login = () => {
 
   const handleLogin = async (e:any) => {
     e.preventDefault();
-    setDisableBtn(true);
+    // setDisableBtn(true);
     const newEmail = email.toLowerCase();
     try {
       const response = await apiService.login({ email:newEmail, password });
       localStorage.setItem("token", response.data.token);
       toastService.successMsg("Successfully entered");
+      
+     socketService.emit("i_am_online", {
+        email: "brytozee",
+      });
+      return
       setTimeout(() => {
         if (location.state?.from) {
         //   navigate(location.state.from);

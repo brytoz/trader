@@ -6,7 +6,7 @@ interface DecodedToken {
 }
 
 const useAuth = () => {
-  const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
+  const [isAuthenticated, setIsAuthenticated] = useState<boolean | null>(null);
 
   useEffect(() => {
     const token = localStorage.getItem("token");
@@ -15,7 +15,7 @@ const useAuth = () => {
       try {
         const decoded = jwtDecode<DecodedToken>(token);
         const isTokenValid = decoded.exp * 1000 > Date.now();
-
+       
         setIsAuthenticated(isTokenValid);
         if (!isTokenValid) {
           localStorage.removeItem("token");
@@ -27,7 +27,7 @@ const useAuth = () => {
     } else {
       setIsAuthenticated(false);
     }
-  }, []);
+  }, [isAuthenticated]);
 
   return isAuthenticated;
 };

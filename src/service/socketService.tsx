@@ -7,7 +7,7 @@ class WSService {
     if (this.socket) return; 
 
     try {
-      this.socket = io(import.meta.env.VITE_REACT_APP_MAIN_SERVER, {
+      this.socket = io(import.meta.env.VITE_REACT_APP_MAIN_HOST, {
         transports: ["websocket"],
       });
 
@@ -20,6 +20,8 @@ class WSService {
   }
 
   emit(event: string, data: Record<string, any> = {}): void {
+    console.log(event)
+    console.log(data)
     if (!this.socket) return console.error("WebSocket not initialized");
     this.socket.emit(event, data);
   }
