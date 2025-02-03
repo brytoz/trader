@@ -23,7 +23,7 @@ const Login = () => {
 
   const handleLogin = async (e:any) => {
     e.preventDefault();
-    // setDisableBtn(true);
+    setDisableBtn(true);
     const newEmail = email.toLowerCase();
     try {
       const response = await apiService.login({ email:newEmail, password });
@@ -33,8 +33,9 @@ const Login = () => {
      socketService.emit("i_am_online", {
         email: "brytozee",
       });
-      return
       setTimeout(() => {
+        socketService.removeListener("i_am_online");
+        
         if (location.state?.from) {
         //   navigate(location.state.from);
         navigate(from, { replace: true });

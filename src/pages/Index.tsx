@@ -7,6 +7,7 @@ import Markets from "../components/Markets";
 // import { fetchMarketData } from "../config/api";
 import BottomNav from "../components/nav/BottomNav";
 
+
 // import ChartLoader from "../components/loaders/ChartLoader";
 // import TradeLoader from "../components/loaders/TradeLoader";
 // import MarketsLoader from "../components/loaders/MarketsLoader";

@@ -7,12 +7,12 @@ class WSService {
     if (this.socket) return; 
 
     try {
-      this.socket = io(import.meta.env.VITE_REACT_APP_MAIN_HOST, {
+      this.socket = io(import.meta.env.VITE_REACT_APP_SOCKET, {
         transports: ["websocket"],
       });
 
-      this.socket.on("connect", () => console.log("Connected to WebSocket"));
-      this.socket.on("disconnect", () => console.warn("Disconnected from WebSocket"));
+      this.socket.on("connect", () => console.log('***** app connected to serverSocket'));
+      this.socket.on("disconnect", () => console.warn('***** app disconnected to serverSocket'));
       this.socket.on("error", (error) => console.error("WebSocket Error:", error));
     } catch (error) {
       console.error("Failed to initialize WebSocket:", error);
@@ -20,8 +20,6 @@ class WSService {
   }
 
   emit(event: string, data: Record<string, any> = {}): void {
-    console.log(event)
-    console.log(data)
     if (!this.socket) return console.error("WebSocket not initialized");
     this.socket.emit(event, data);
   }
