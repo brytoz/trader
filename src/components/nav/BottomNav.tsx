@@ -12,7 +12,6 @@ const BottomNav: React.FC = () => {
   const { historyNav, orderNav,closedNav, setHistoryNav, setOrderNav, setCloseNav } =
     useNavigationStore();
 
-    console.log(closedNav)
   return (
     <div className={`w-full mt-4 overflow-y-scroll bg-gray-900 ${closedNav ? "h-[25vh]" :"h-[30rem]"}`}>
       <div className="  w-full flex justify-around bg-gray-900 shadow-sm border border-gray-900 py-1 px-4  ">

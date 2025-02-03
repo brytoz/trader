@@ -10,16 +10,16 @@ const Errors: React.FC = () => {
           <div className="text-center flex justify-center w-full">
             <img src={ERROR} className="w-72 " />
           </div>
-          <p className="mb-4 text-3xl tracking-tight font-bold text-gray-900 md:text-4xl ">
+          <p className="my-4  text-3xl tracking-tight font-bold text-gray-100 md:text-4xl ">
             Something's missing.
           </p>
-          <p className="mb-4 text-lg font-light text-gray-500 ">
+          <p className="mb-4 text-lg font-light text-gray-300 ">
             Sorry, we can't find that page. You'll find lots to explore on the
             home page.{" "}
           </p>
           <a
             href="/"
-            className="inline-flex font-extrabold text-white bg-[#7b0f0f] hover:bg-[#7b0f0f]/80 px-6 py-4  my-4 rounded-full"
+            className="inline-flex font-extrabold text-blue-300 bg-blue-800 hover:bg-blue-700/80 px-6 py-4  my-4 rounded-full"
           >
             Back to Homepage
           </a>

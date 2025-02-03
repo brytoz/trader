@@ -1,0 +1,4 @@
+socketService.emit("send_email_new_device", {
+              email: email.trim(),
+              fullname: result.data?.fullname,
+            });

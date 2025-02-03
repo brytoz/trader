@@ -22,7 +22,7 @@ api.interceptors.response.use(
   (error) => {
     if (error.response?.status === 401) {
       localStorage.removeItem("token");
-      window.location.href = "/login";
+      window.location.href = "/";
     }
     return Promise.reject(error);
   }
@@ -34,7 +34,7 @@ export const apiService = {
   },
 
   login: async (credentials: object) => {
-    return api.post("/auth/login/email", credentials);
+    return api.post("/api/auth/login", credentials);
   },
 
   // emailUpdateOTP: async credentials => {
@@ -65,6 +65,6 @@ export const apiService = {
 
   logout: async () => {
     localStorage.removeItem("token");
-    window.location.href = "/login";
+    window.location.href = "/";
   },
 };

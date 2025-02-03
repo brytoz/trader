@@ -8,7 +8,7 @@ const ProtectedRoutes = () => {
   return isAuthenticated ? (
     <Outlet />
   ) : (
-    <Navigate to="/login" replace state={{ from: location }} />
+    <Navigate to="/" replace state={{ from: location }} />
   );
 };
 
