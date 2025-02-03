@@ -37,6 +37,9 @@ export const apiService = {
     return api.post("/api/auth/login", credentials);
   },
 
+  placeMarketOrder: async (credentials: object) => {
+    return api.post("/api/orders/market", credentials);
+  },
   // emailUpdateOTP: async credentials => {
   //   try {
   //     const keychainData = await Keychain.getGenericPassword();

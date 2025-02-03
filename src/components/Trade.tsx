@@ -1,6 +1,10 @@
 import React, { useState } from "react";
 import { Minus, Plus } from "lucide-react";
 import { useTradingStore } from "../store/useTradingStore";
+import { toastService } from "../service/toastMsg";
+import { ToastContainer } from "react-toastify";
+import socketService from "../service/socketService";
+import { apiService } from "../service/apiservice";
 
 interface TradeProps {
   pair: string;
@@ -33,8 +37,36 @@ const Trade: React.FC<TradeProps> = ({ sellAmount, buyAmount, pair }) => {
     setOpenPrice,
   } = useTradingStore();
 
+  const enterMarketOrder = async () => {
+    toastService.infoMsg(`${"Market order entered"}`);
+    try {
+      await apiService.placeMarketOrder({
+        userId: "5e55de9c-d528-40bc-8120-487586fbda24",
+        accountId: "2fdc594b-e9dd-49a7-bcb3-4f53f9b258fe",
+        side: buyOrder ? "buy" : "sell",
+        symbol: pair,
+        quantity: volume,
+        stopLoss: parseFloat(stopLoss) > 0 ? parseFloat(stopLoss) : null,
+        takeProfit: parseFloat(takeProfit) > 0 ? parseFloat(takeProfit) : null,
+      });
+      toastService.successMsg(`Market ${buyOrder ? "Buy" : "Sell"} Order placed successfully`);
+
+      // socketService.removeListener("i_am_online");
+    } catch (error: any) {
+      toastService.errorMsg(
+        `${
+          error.response?.data?.error ||
+          error.response?.data?.message ||
+          "Market order error. Not successful"
+        }`
+      );
+    }
+  };
+
   return (
     <div className="w-full rounded h-auto border border-gray-900 shadow p-6 flex flex-col gap-6 bg-gray-900 text-white">
+      <ToastContainer />
+
       <div className="text-xl font-extrabold text-white">Trade {pair}</div>
 
       <div className="flex justify-between items-center  shadow-sm rounded bg-gray-800 ">
@@ -111,16 +143,18 @@ const Trade: React.FC<TradeProps> = ({ sellAmount, buyAmount, pair }) => {
           <div className="text-[0.6rem]">1000 USD</div>
         </div>
       </div>
-      {orderType === "market" && <div className="-my-2 flex flex-col  gap-2 bg-gray-800 p-2 rounded-lg   mx-auto w-full text-[0.6rem]">
-        <div className="flex justify-between px-1">
-          <div>Required Margin</div>
-          <div>$30</div>
+      {orderType === "market" && (
+        <div className="-my-2 flex flex-col  gap-2 bg-gray-800 p-2 rounded-lg   mx-auto w-full text-[0.6rem]">
+          <div className="flex justify-between px-1">
+            <div>Required Margin</div>
+            <div>$30</div>
+          </div>
+          <div className="flex justify-between px-1">
+            <div>Free Margin</div>
+            <div>$50054</div>
+          </div>
         </div>
-        <div className="flex justify-between px-1">
-          <div>Free Margin</div>
-          <div>$50054</div>
-        </div>
-      </div>}
+      )}
       {orderType === "limit" ? (
         <div>
           <div>Open Price</div>
@@ -229,7 +263,10 @@ const Trade: React.FC<TradeProps> = ({ sellAmount, buyAmount, pair }) => {
         </div>
       </div>
       <div className="w-full mt-4">
-        <button className=" w-full bg-blue-600 rounded-lg py-2 px-4  font-bold text-center bg-black text-white cursor-pointer shadow-sm ">
+        <button
+          onClick={orderType === "market" ? enterMarketOrder : undefined}
+          className=" w-full bg-blue-600 rounded-lg py-2 px-4  font-bold text-center bg-black text-white cursor-pointer shadow-sm "
+        >
           {buyOrder ? "Buy" : "Sell"} {"    "}
           {orderType === "market" ? (buyOrder ? buyAmount : sellAmount) : ""}
         </button>

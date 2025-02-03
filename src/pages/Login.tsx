@@ -12,45 +12,46 @@ const Login = () => {
   const [password, setPassword] = useState<string>("");
   const [disableBtn, setDisableBtn] = useState<boolean>(false);
 
-    const navigate = useNavigate();
-    const location = useLocation();
+  const navigate = useNavigate();
+  const location = useLocation();
 
-    useEffect(() => {
-        document.title = "Login | Webtrader | Uptrise  ";
-      }, []);
+  useEffect(() => {
+    document.title = "Login | Webtrader | Uptrise  ";
+  }, []);
 
-    const from = location.state?.from?.pathname || "/";
+  const from = location.state?.from?.pathname || "/";
 
-  const handleLogin = async (e:any) => {
+  const handleLogin = async (e: any) => {
     e.preventDefault();
     setDisableBtn(true);
     const newEmail = email.toLowerCase();
     try {
-      const response = await apiService.login({ email:newEmail, password });
+      const response = await apiService.login({ email: newEmail, password });
       localStorage.setItem("token", response.data.token);
-      toastService.successMsg("Successfully entered");
-      
-     socketService.emit("i_am_online", {
+      toastService.successMsg("Successfully Logged in. please wait...");
+
+      socketService.emit("i_am_online", {
         email: "brytozee",
       });
       setTimeout(() => {
-        socketService.removeListener("i_am_online");
-        
         if (location.state?.from) {
-        //   navigate(location.state.from);
-        navigate(from, { replace: true });
-
+          //   navigate(location.state.from);
+          navigate(from, { replace: true });
         } else {
           window.location.replace(
-            `${
-              import.meta.env.VITE_REACT_WEBSITE
-            }/index?=logged-in-true`
+            `${import.meta.env.VITE_REACT_WEBSITE}/index?=logged-in-true`
           );
         }
       }, 3000);
     } catch (error: any) {
       setDisableBtn(false);
-      toastService.errorMsg(`${error.response?.data?.error || error.response?.data?.message || "Some error occuserede"}`);
+      toastService.errorMsg(
+        `${
+          error.response?.data?.error ||
+          error.response?.data?.message ||
+          "Some error occuserede"
+        }`
+      );
     }
   };
 
