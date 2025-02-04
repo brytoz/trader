@@ -64,10 +64,13 @@ export const rows =
     direction: "sell",
   },
 ] || [];
+interface OrderTableProps {
+data: object[] | []
+}
 
-const OrderTable = () => {
+const OrderTable:React.FC<OrderTableProps> = ({data}) => {
   const { closed, pending, open } = usePositionsStore();
- 
+ console.log(data)
   return (
     <div className="overflow-x-auto w-full">
       

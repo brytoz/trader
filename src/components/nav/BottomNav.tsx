@@ -1,19 +1,49 @@
-import React, { Fragment } from "react";
+import React, { Fragment, useEffect, useState } from "react";
 import { usePositionsStore } from "../../store/usePositionsStore";
 import OrderTable from "../table/OrderTable";
 import { useNavigationStore } from "../../store/useNavigationStore";
 import HistoryTable from "../table/HistoryTable";
 import { Briefcase, CircleX } from "lucide-react";
+import socketService from "../../service/socketService";
 // import TableLoader from "../loaders/TableLoader";
 
 const BottomNav: React.FC = () => {
+  const [trades, setTrades] = useState<object[]>([]);
+
+  console.log("trades hererr", trades);
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+
+    socketService.emit("trade_update", {
+      token,
+      accountId: "2fdc594b-e9dd-49a7-bcb3-4f53f9b258fe",
+      userId: "5e55de9c-d528-40bc-8120-487586fbda24",
+    });
+
+    socketService.on("getOpenOrders", (data) => {
+      setTrades(data);
+    });
+
+    return () => socketService.removeListener("trade_update");
+  }, []);
+
   const { open, pending, closed, setOpen, setClose, setPending } =
     usePositionsStore();
-  const { historyNav, orderNav,closedNav, setHistoryNav, setOrderNav, setCloseNav } =
-    useNavigationStore();
+  const {
+    historyNav,
+    orderNav,
+    closedNav,
+    setHistoryNav,
+    setOrderNav,
+    setCloseNav,
+  } = useNavigationStore();
 
   return (
-    <div className={`w-full mt-4 overflow-y-scroll bg-gray-900 ${closedNav ? "h-[25vh]" :"h-[30rem]"}`}>
+    <div
+      className={`w-full mt-4 overflow-y-scroll bg-gray-900 ${
+        closedNav ? "h-[25vh]" : "h-[30rem]"
+      }`}
+    >
       <div className="  w-full flex justify-around bg-gray-900 shadow-sm border border-gray-900 py-1 px-4  ">
         <div
           onClick={setOrderNav}
@@ -36,10 +66,19 @@ const BottomNav: React.FC = () => {
       {orderNav && (
         <Fragment>
           <div className="flex justify-between px-12 py-3">
-          <div className=" font-bold  text-xl transition-all duration-500 ">Positions {open && "- Open"} {pending && "- Pending"} {closed && "- Closed"} </div>
-          <div onClick={setCloseNav} className=" font-bold  text-sm flex items-center bg-black tex p-1 rounded px-3 cursor-pointer"> close <CircleX /> </div>
+            <div className=" font-bold  text-xl transition-all duration-500 ">
+              Positions {open && "- Open"} {pending && "- Pending"}{" "}
+              {closed && "- Closed"}{" "}
+            </div>
+            <div
+              onClick={setCloseNav}
+              className=" font-bold  text-sm flex items-center bg-black tex p-1 rounded px-3 cursor-pointer"
+            >
+              {" "}
+              close <CircleX />{" "}
+            </div>
           </div>
-            
+
           <div className="  w-full flex justify-around bg-gray-900 shadow-sm border border-gray-900 py-1 px-4  ">
             <div
               onClick={setOpen}
@@ -70,7 +109,7 @@ const BottomNav: React.FC = () => {
       )}
 
       <div className="w-full px-12  ">
-        {orderNav && <OrderTable />}
+        {orderNav && <OrderTable data={trades} />}
         {historyNav && <HistoryTable />}
       </div>
     </div>
