@@ -37,7 +37,7 @@ const Trade: React.FC<TradeProps> = ({ sellAmount, buyAmount, pair }) => {
     setOpenPrice,
   } = useTradingStore();
 
-  const enterMarketOrder = async () => {
+  const enterMarketOrder = async (): Promise<void> => {
     toastService.infoMsg(`${"Market order entered"}`);
     try {
       await apiService.placeMarketOrder({
@@ -49,7 +49,9 @@ const Trade: React.FC<TradeProps> = ({ sellAmount, buyAmount, pair }) => {
         stopLoss: parseFloat(stopLoss) > 0 ? parseFloat(stopLoss) : null,
         takeProfit: parseFloat(takeProfit) > 0 ? parseFloat(takeProfit) : null,
       });
-      toastService.successMsg(`Market ${buyOrder ? "Buy" : "Sell"} Order placed successfully`);
+      toastService.successMsg(
+        `Market ${buyOrder ? "Buy" : "Sell"} Order placed successfully`
+      );
 
       // socketService.removeListener("i_am_online");
     } catch (error: any) {
@@ -63,6 +65,35 @@ const Trade: React.FC<TradeProps> = ({ sellAmount, buyAmount, pair }) => {
     }
   };
 
+  const enterLimitOrder = async (): Promise<void> => {
+    toastService.infoMsg(`${"Limit order entered"}`);
+    try {
+      await apiService.placeLimitOrder({
+        userId: "5e55de9c-d528-40bc-8120-487586fbda24",
+        accountId: "2fdc594b-e9dd-49a7-bcb3-4f53f9b258fe",
+        side: buyOrder ? "buy" : "sell",
+        symbol: pair,
+        quantity: volume,
+        price: openPrice,
+        stopLoss: parseFloat(stopLoss) > 0 ? parseFloat(stopLoss) : null,
+        takeProfit: parseFloat(takeProfit) > 0 ? parseFloat(takeProfit) : null,
+      });
+      toastService.successMsg(
+        `Limit ${buyOrder ? "Buy" : "Sell"} Order placed successfully`
+      );
+
+      // socketService.removeListener("i_am_online");
+    } catch (error: any) {
+      toastService.errorMsg(
+        `${
+          error.response?.data?.error ||
+          error.response?.data?.message ||
+          "Limit order error. Not successful"
+        }`
+      );
+    }
+  };
+  
   return (
     <div className="w-full rounded h-auto border border-gray-900 shadow p-6 flex flex-col gap-6 bg-gray-900 text-white">
       <ToastContainer />
@@ -264,11 +295,11 @@ const Trade: React.FC<TradeProps> = ({ sellAmount, buyAmount, pair }) => {
       </div>
       <div className="w-full mt-4">
         <button
-          onClick={orderType === "market" ? enterMarketOrder : undefined}
+          onClick={orderType === "market" ? enterMarketOrder : enterLimitOrder}
           className=" w-full bg-blue-600 rounded-lg py-2 px-4  font-bold text-center bg-black text-white cursor-pointer shadow-sm "
         >
           {buyOrder ? "Buy" : "Sell"} {"    "}
-          {orderType === "market" ? (buyOrder ? buyAmount : sellAmount) : ""}
+          {orderType === "market" ? (buyOrder ? buyAmount : sellAmount) : openPrice}
         </button>
       </div>
     </div>

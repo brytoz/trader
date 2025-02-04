@@ -36,9 +36,14 @@ export const apiService = {
   login: async (credentials: object) => {
     return api.post("/api/auth/login", credentials);
   },
-
+  
+  
   placeMarketOrder: async (credentials: object) => {
     return api.post("/api/orders/market", credentials);
+  },
+
+  placeLimitOrder: async (credentials: object) => {
+    return api.post("/api/orders/limit", credentials);
   },
   // emailUpdateOTP: async credentials => {
   //   try {
