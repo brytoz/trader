@@ -17,7 +17,6 @@ const BottomNav: React.FC = () => {
     socketService.emit("trade_update", {
       token,
       accountId: "2fdc594b-e9dd-49a7-bcb3-4f53f9b258fe",
-      // accountId: "2fdc594b-e9dd-49a7-bcb3-4f53f9b258fe",
       userId: "5e55de9c-d528-40bc-8120-487586fbda24",
     });
 
