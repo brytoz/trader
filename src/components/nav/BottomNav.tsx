@@ -5,7 +5,7 @@ import { useNavigationStore } from "../../store/useNavigationStore";
 import HistoryTable from "../table/HistoryTable";
 import { Briefcase, CircleX } from "lucide-react";
 import socketService from "../../service/socketService";
-// import TableLoader from "../loaders/TableLoader";
+import TableLoader from "../loaders/TableLoader";
 
 const BottomNav: React.FC = () => {
   const [trades, setTrades] = useState<object[]>([]);
