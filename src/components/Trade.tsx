@@ -296,10 +296,10 @@ const Trade: React.FC<TradeProps> = ({ sellAmount, buyAmount, pair }) => {
       <div className="w-full mt-4">
         <button
           onClick={orderType === "market" ? enterMarketOrder : enterLimitOrder}
-          className=" w-full bg-blue-600 rounded-lg py-2 px-4  font-bold text-center bg-black text-white cursor-pointer shadow-sm "
+          className=" w-full bg-blue-600 rounded-lg py-2 px-4  font-bold text-center bg-black text-white cursor-pointer shadow-sm nnnn0"
         >
           {buyOrder ? "Buy" : "Sell"} {"    "}
-          {orderType === "market" ? (buyOrder ? buyAmount : sellAmount) : openPrice}
+          {orderType === "market" ? (buyOrder ? buyAmount : sellAmount) :openPrice}
         </button>
       </div>
     </div>
