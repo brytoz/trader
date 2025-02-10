@@ -45,6 +45,25 @@ export const apiService = {
   placeLimitOrder: async (credentials: object) => {
     return api.post("/api/orders/limit", credentials);
   },
+
+  //=========== ORDERS ==========
+  getOpenOrders: () => {
+    return api.get("/api/orders/open");
+  },
+
+  getFilledOrders: () => {
+    return api.get("/api/orders/filled");
+  },
+  
+  getPendingOrders: () => {
+    return api.get("/api/orders/pending");
+  },
+
+  getHistoryOrders: () => {
+    return api.get("/api/orders/profile");
+  },
+
+
   // emailUpdateOTP: async credentials => {
   //   try {
   //     const keychainData = await Keychain.getGenericPassword();
