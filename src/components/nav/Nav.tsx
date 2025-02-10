@@ -1,11 +1,29 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { TrendingUp, TrendingDown } from "lucide-react";
+import { apiService } from "../../service/apiservice";
+import { useQuery } from "@tanstack/react-query";
 
 interface NavProps {}
 
 const Nav: React.FC<NavProps> = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+  const fetchProfile = async () => {
+    try {
+      const response = await apiService.getMyProfile();
+      console.log("my data", response);
+      return response.data;
+    } catch (error) {
+      throw new Error("Cannot fetch open orders ");
+    }
+  };
+  const { data, isLoading } = useQuery({
+    queryKey: ["myProfile"],
+    queryFn: fetchProfile,
+  });
+
+  console.log("info", data)
   return (
     <div className="logo transition-all duration-500     z-10">
       <div className="transition-all duration-500 w-full p-3 flex justify-start items-center px-6  backdrop-blur-md  bg-black/20 text-white  font-bold   shadow-xlg glass2">
@@ -24,41 +42,39 @@ const Nav: React.FC<NavProps> = () => {
             </div>
             <div className="text-xs">$900</div>
           </span>
-          <span className="">
-            <div className=" text-xs hidden md:block transition-all duration-500 ">
-              Credit
-            </div>
-            <div className="text-xs">$900</div>
-          </span>
+
           <span className="">
             <div className=" text-xs   transition-all duration-500 flex items-center">
-              <p>
-                {" "}
-                
-              </p>
+              <p> </p>
               <p>Equity</p>
             </div>
-            <div className="text-xs flex items-center"><TrendingDown className="w-4 h-4 mr-1 text-red" /> $900</div>
+            <div className="text-xs flex items-center">
+              <TrendingDown className="w-4 h-4 mr-1 text-red" /> 900{" "}
+              {isLoading && 0}{" "}
+            </div>
           </span>
           <span className="">
             <div className=" text-xs hidden md:block transition-all duration-500 ">
               Margin
             </div>
-            <div className="text-xs">$900</div>
+            <div className="text-xs">$900 {isLoading && 0}</div>
           </span>
 
           <span className="">
             <div className=" text-xs hidden md:block transition-all duration-500 ">
               Margin Level
             </div>
-            <div className="text-xs">50%</div>
+            <div className="text-xs">50% {isLoading && "0%"}</div>
           </span>
 
           <span className="">
             <div className=" text-xs hidden md:block transition-all duration-500 ">
               P/L
             </div>
-            <div className="text-xs flex items-center"><TrendingUp className="w-4 h-4 mr-1 text-green-600" /> $900</div>
+            <div className="text-xs flex items-center">
+              <TrendingUp className="w-4 h-4 mr-1 text-green-600" /> $900{" "}
+              {isLoading && 0}
+            </div>
           </span>
 
           <button
@@ -69,7 +85,7 @@ const Nav: React.FC<NavProps> = () => {
           </button>
         </div>
 
-        {/* Mobile Navigation */}
+        {/* Mobile Navigatipn */}
         {isMenuOpen && (
           <nav className="transition-all duration-500 absolute top-0 right-0 w-1/2 h-screen bg-black bg-opacity-90 flex flex-col items-center justify-center space-y-6 z-100">
             <button
@@ -78,16 +94,13 @@ const Nav: React.FC<NavProps> = () => {
             >
               &times;
             </button>
-            <span className="text-lg">Home</span>
-            <span className="text-lg transition-all duration-500">About</span>
+            <span className="text-lg">Balance</span>
+            <span className="text-lg transition-all duration-500">Equity</span>
 
-            <span className="text-lg transition-all duration-500">
-              Products
-            </span>
+            <span className="text-lg transition-all duration-500">Margin</span>
 
-            <span className="text-lg" onClick={() => setIsMenuOpen(false)}>
-              Contact Us
-            </span>
+            <span className="text-lg">Margin Level</span>
+            <span className="text-lg">P/L</span>
           </nav>
         )}
       </div>

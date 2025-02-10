@@ -30,7 +30,7 @@ api.interceptors.response.use(
 
 export const apiService = {
   getMyProfile: () => {
-    return api.get("/user/profile");
+    return api.get("/api/auth/info");
   },
 
   login: async (credentials: object) => {

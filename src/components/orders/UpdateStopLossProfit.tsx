@@ -1,7 +1,8 @@
 import { Minus, Plus } from "lucide-react";
 
 interface UpdateStopLossProfitProps {
-  data: object;
+  // data: {id: string, symbol: string,  createdAt: string, price: string, quantity: number, side: string, status: string, stopLoss: string | null , takeProfit: string | null, type : string, updatedAt: string, userId: string,  account : {id: string, balance: number, leverage: string, tradingAccountType: string}  }  | null;  
+  data: any;
   close: () => void
 }
 
@@ -9,16 +10,19 @@ export const UpdateStopLossProfit: React.FC<UpdateStopLossProfitProps> = ({
   data, close
 }) => {
 
-  console.log("leg", data)
   return (
     <div className="w-full h-screen fixed top-0 left-0 right-0 bottom z-[100] bg-white/30">
       <div className="flex items-center justify-center h-full">
         <div className="bg-gray-900 rounded-lg p-12 text-xl md:text-3xl font-extrabold text-gray-100">
-          UpdateStopLossProfit...
+          {data?.symbol}
           <div className="flex flex-col  justify-start text-xs gap-4 mt-8 ">
             <div className="  shadow-sm py-2 px-2 rounded-lg shadow-gray-700 cursor-pointer  border border-gray-900 transition-all duration-500">
               <div className="flex justify-between items-around">
                 <div>Take Profit</div>
+                <div className="text-xs font-normal">
+                  <div className="text-[0.46rem]">Previous value</div> 
+                  <div>{data.takeProfit}</div> 
+                </div>
               </div>
 
               <div className=" mt-2 flex items-center gap-2 bg-gray-800 p-2 rounded-lg   mx-auto">
@@ -40,6 +44,10 @@ export const UpdateStopLossProfit: React.FC<UpdateStopLossProfitProps> = ({
             <div className="  shadow-sm py-2 px-2 rounded-lg shadow-gray-700 cursor-pointer  border border-gray-900 transition-all duration-500">
               <div className="flex justify-between items-around">
                 <div>Stop Loss</div>
+                <div className="text-xs font-normal">
+                  <div className="text-[0.46rem]">Previous value</div> 
+                  <div>{data.stopLoss}</div> 
+                </div>
               </div>
 
               <div className=" mt-2 flex items-center gap-2 bg-gray-800 p-2 rounded-lg   mx-auto">

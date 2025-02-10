@@ -1,4 +1,3 @@
-import axios from "axios";
 
 const API_KEY = "58ASQZO5MFVHYIRC";
 
@@ -40,14 +39,12 @@ export const fetchAvailablePairs = async (): Promise<ForexPair[]> => {
 
 export const fetchMarketData = async (symbol: string) => {
   try {
-    // Fetch ticker data for current price
     const tickerResponse = await fetch(
       `https://api.binance.com/api/v3/ticker/price?symbol=${symbol}`
     );
     const tickerData = await tickerResponse.json();
     const currentPrice = tickerData.price;
 
-    // Fetch order book data for buy/sell values
     const orderBookResponse = await fetch(
       `https://api.binance.com/api/v3/ticker/bookTicker?symbol=${symbol}`
     );
