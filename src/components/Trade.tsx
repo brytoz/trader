@@ -3,7 +3,7 @@ import { Minus, Plus } from "lucide-react";
 import { useTradingStore } from "../store/useTradingStore";
 import { toastService } from "../service/toastMsg";
 import { ToastContainer } from "react-toastify";
-import socketService from "../service/socketService";
+// import socketService from "../service/socketService";
 import { apiService } from "../service/apiservice";
 
 interface TradeProps {

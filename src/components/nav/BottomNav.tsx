@@ -5,27 +5,26 @@ import { useNavigationStore } from "../../store/useNavigationStore";
 import HistoryTable from "../table/HistoryTable";
 import { Briefcase, CircleX } from "lucide-react";
 import socketService from "../../service/socketService";
-import TableLoader from "../loaders/TableLoader";
+// import TableLoader from "../loaders/TableLoader";
 
 const BottomNav: React.FC = () => {
   const [trades, setTrades] = useState<object[]>([]);
 
-  console.log("trades hererr", trades);
-  useEffect(() => {
-    const token = localStorage.getItem("token");
+  // useEffect(() => {
+  //   const token = localStorage.getItem("token");
 
-    socketService.emit("trade_update", {
-      token,
-      accountId: "2fdc594b-e9dd-49a7-bcb3-4f53f9b258fe",
-      userId: "5e55de9c-d528-40bc-8120-487586fbda24",
-    });
+  //   socketService.emit("trade_update", {
+  //     token,
+  //     accountId: "2fdc594b-e9dd-49a7-bcb3-4f53f9b258fe",
+  //     userId: "5e55de9c-d528-40bc-8120-487586fbda24",
+  //   });
 
-    socketService.on("getOpenOrders", (data) => {
-      setTrades(data);
-    });
+  //   socketService.on("getOpenOrders", (data) => {
+  //     setTrades(data);
+  //   });
 
-    return () => socketService.removeListener("trade_update");
-  }, []);
+  //   return () => socketService.removeListener("trade_update");
+  // }, []);
 
   const { open, pending, closed, setOpen, setClose, setPending } =
     usePositionsStore();
