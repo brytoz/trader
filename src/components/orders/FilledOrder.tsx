@@ -1,7 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import { apiService } from "../../service/apiservice";
 import TableLoader from "../loaders/TableLoader";
-import { rows } from "../table/OrderTable";
 import { usePositionsStore } from "../../store/usePositionsStore";
 import { ChevronDown, ChevronUp, Plus } from "lucide-react";
 
@@ -20,7 +19,7 @@ export const FilledOrder = () => {
     queryFn: fetchFilledOrders,
   });
 
-  const { closed, pending, open } = usePositionsStore();
+  const { closed, pending,  } = usePositionsStore();
 
   return (
     <>
