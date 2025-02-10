@@ -1,31 +1,15 @@
-import React, { Fragment, useEffect, useState } from "react";
+import React, { Fragment, useState } from "react";
 import { usePositionsStore } from "../../store/usePositionsStore";
 import OrderTable from "../table/OrderTable";
 import { useNavigationStore } from "../../store/useNavigationStore";
 import HistoryTable from "../table/HistoryTable";
 import { Briefcase, CircleX } from "lucide-react";
 // import socketService from "../../service/socketService";
-import { apiService } from "../../service/apiservice";
-import { useQuery } from "@tanstack/react-query";
-import TableLoader from "../loaders/TableLoader";
-// import TableLoader from "../loaders/TableLoader";
 
 const BottomNav: React.FC = () => {
   const [trades, setTrades] = useState<object[]>([]);
 
-  const fetchFilledOrders = async () => {
-    try {
-      const response = await apiService.getFilledOrders();
-      console.log("sdsdsf", response)
-      return response.data;
-    } catch (error) {
-      throw new Error('Cannot fetch filled orders expired');
-    }
-  };
-  const {data, isLoading,} = useQuery({
-    queryKey: ['filledOrders'],
-    queryFn: fetchFilledOrders,
-  });
+
 
   // useEffect(() => {
   //   const token = localStorage.getItem("token");
@@ -125,7 +109,7 @@ const BottomNav: React.FC = () => {
       )}
 
       <div className="w-full px-12  ">
-        {isLoading && <TableLoader />}
+        
         {orderNav && <OrderTable data={trades} />}
         {historyNav && <HistoryTable />}
       </div>
