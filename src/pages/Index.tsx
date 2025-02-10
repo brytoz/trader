@@ -6,6 +6,7 @@ import TradingViewChart from "../components/TradingViewChart";
 import Markets from "../components/Markets";
 // import { fetchMarketData } from "../config/api";
 import BottomNav from "../components/nav/BottomNav";
+import { UpdateStopLossProfit } from "../components/orders/UpdateStopLossProfit";
 
 
 // import ChartLoader from "../components/loaders/ChartLoader";
@@ -25,12 +26,14 @@ const Index: React.FC = () => {
   //   queryFn: () => fetchMarketData(),
   // });
 
+  const wrong = {id:43}
   return (
     <div>
       <div className="bg-[#242424]">
 
       <Nav />
       </div>
+      {/* <UpdateStopLossProfit data={wrong} /> */}
 
       <div className="one w-full flex h-[70vh] ">
         <div className="w-[70%] flex h-auto">

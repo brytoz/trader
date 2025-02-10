@@ -33,22 +33,7 @@ const Markets: React.FC<MarketsProps> = ({ setSelectedSymbol }) => {
           <option value="">Bonds</option>
         </select>
 
-        {/* <div
-          className={`transition-all duration-500 rounded-lg shadow-sm px-3 py-1  cursor-pointer ${
-            forexSelection ? "bg-black text-white" : "bg-white text-black"
-          }`}
-          onClick={() => setForexSelection(true)}
-        >
-          FIAT
-        </div>
-        <div
-          className={`transition-all duration-500 rounded-lg shadow-sm px-3 py-1  cursor-pointer ${
-            forexSelection ? "bg-white text-black" : "bg-black text-white"
-          }`}
-          onClick={() => setForexSelection(false)}
-        >
-          CRYPTO
-        </div> */}
+        
       </div>
       {pairs.map((pair, index) => (
         <div

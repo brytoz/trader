@@ -4,8 +4,16 @@ import TableLoader from "../loaders/TableLoader";
 
 import { usePositionsStore } from "../../store/usePositionsStore";
 import { ChevronDown, ChevronUp, Plus } from "lucide-react";
+import { useState } from "react";
+import { UpdateStopLossProfit } from "./UpdateStopLossProfit";
 
 export const PendingOrder = () => {
+  const [selectedData, setSelectedData] = useState<object | null>(null);
+
+  const handleEditClick = (data:object | null) => {
+    setSelectedData(data);
+  };
+
   const fetchPendingOrders = async () => {
     try {
       const response = await apiService.getPendingOrders();
@@ -24,6 +32,8 @@ export const PendingOrder = () => {
 
   return (
     <>
+    {selectedData && <UpdateStopLossProfit close={() => setSelectedData(null)} data={selectedData} />}
+
            <tbody>
         {data && data.map((row:any) => (
           <tr
@@ -69,23 +79,17 @@ export const PendingOrder = () => {
             <td className="px-4 py-3 text-xs">{row.createdAt}</td>
             <td className="px-4 py-3">
               {!closed ? (
-                <span className="px-2 py-1 rounded text-sm font-medium bg-yellow-700 text-yellow-200 hover:bg-yellow-800 cursor-pointer">
+                <button onClick={() => handleEditClick(row)} className="px-2 py-1 rounded text-sm font-medium bg-yellow-700 text-yellow-200 hover:bg-yellow-800 cursor-pointer">
                   Edit
-                </span>
+                </button>
               ) : (
-                <span className="text-xs">{row?.closeDate}</span>
+                <span className="text-xs">{row?.updatedAt}</span>
               )}
             </td>
             <td className="px-4 py-3">
-              {closed ? (
-                <span className="px-2 py-1 rounded text-sm font-medium bg-gray-700 text-gray-200 hover:bg-gray-800 cursor-pointer">
-                  View
+                <span className="px-2 py-1 rounded text-sm font-medium bg-blue-500 text-gray-200 hover:bg-gray-800 cursor-pointer">
+                  Cancel Trade
                 </span>
-              ) : (
-                <span className="px-2 py-1 rounded text-sm font-medium bg-blue-700 text-blue-200 hover:bg-blue-800 cursor-pointer">
-                  Close trade
-                </span>
-              )}
             </td>
           </tr>
         ))}

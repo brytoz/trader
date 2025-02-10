@@ -73,7 +73,7 @@ export const FilledOrder = () => {
                     Edit
                   </span>
                 ) : (
-                  <span className="text-xs">{row?.closeDate}</span>
+                  <span className="text-xs">{row?.updatedAt}</span>
                 )}
               </td>
               <td className="px-4 py-3">

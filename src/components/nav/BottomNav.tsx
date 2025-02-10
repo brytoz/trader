@@ -110,7 +110,7 @@ const BottomNav: React.FC = () => {
 
       <div className="w-full px-12  ">
         
-        {orderNav && <OrderTable data={trades} />}
+        {orderNav && <OrderTable />}
         {historyNav && <HistoryTable />}
       </div>
     </div>

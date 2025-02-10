@@ -213,7 +213,7 @@ const Trade: React.FC<TradeProps> = ({ sellAmount, buyAmount, pair }) => {
       ) : null}
 
       <div className="flex flex-col  justify-start text-xs gap-4  ">
-        <div className="rounded shadow-sm py-2 px-2 rounded-lg shadow-gray-700 cursor-pointer  border border-gray-900 transition-all duration-500">
+        <div className="  shadow-sm py-2 px-2 rounded-lg shadow-gray-700 cursor-pointer  border border-gray-900 transition-all duration-500">
           <div className="flex justify-between items-around">
             <div>Take Profit</div>
             <div onClick={() => setTProfit(!tProfit)}>
@@ -253,7 +253,7 @@ const Trade: React.FC<TradeProps> = ({ sellAmount, buyAmount, pair }) => {
           </div>
         </div>
 
-        <div className="rounded shadow-sm py-2 px-2 rounded-lg shadow-gray-700 cursor-pointer  border border-gray-900 transition-all duration-500">
+        <div className="  shadow-sm py-2 px-2 rounded-lg shadow-gray-700 cursor-pointer  border border-gray-900 transition-all duration-500">
           <div className="flex justify-between items-around">
             <div>Stop Loss</div>
             <div onClick={() => setLoss(!sLoss)}>
@@ -296,7 +296,7 @@ const Trade: React.FC<TradeProps> = ({ sellAmount, buyAmount, pair }) => {
       <div className="w-full mt-4">
         <button
           onClick={orderType === "market" ? enterMarketOrder : enterLimitOrder}
-          className=" w-full bg-blue-600 rounded-lg py-2 px-4  font-bold text-center bg-black text-white cursor-pointer shadow-sm nnnn0"
+          className=" w-full bg-blue-600 rounded-lg py-2 px-4  font-bold text-center text-white cursor-pointer shadow-sm "
         >
           {buyOrder ? "Buy" : "Sell"} {"    "}
           {orderType === "market" ? (buyOrder ? buyAmount : sellAmount) :openPrice}
