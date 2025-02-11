@@ -1,4 +1,4 @@
-import React, { Fragment, useState } from "react";
+import React, { Fragment } from "react";
 import { usePositionsStore } from "../../store/usePositionsStore";
 import OrderTable from "../table/OrderTable";
 import { useNavigationStore } from "../../store/useNavigationStore";
@@ -7,9 +7,6 @@ import { Briefcase, CircleX } from "lucide-react";
 // import socketService from "../../service/socketService";
 
 const BottomNav: React.FC = () => {
-  const [trades, setTrades] = useState<object[]>([]);
-
-
 
   // useEffect(() => {
   //   const token = localStorage.getItem("token");

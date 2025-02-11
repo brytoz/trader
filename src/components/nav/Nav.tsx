@@ -12,7 +12,6 @@ const Nav: React.FC<NavProps> = () => {
   const fetchProfile = async () => {
     try {
       const response = await apiService.getMyProfile();
-      console.log("my data", response);
       return response.data;
     } catch (error) {
       throw new Error("Cannot fetch open orders ");
