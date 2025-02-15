@@ -13,6 +13,6 @@ export const toastService = {
     toast.info(`${message}`);
   },
   warningMsg: (message: string) => {
-    toast.warning(`${message}`);
+    toast.warning(`${message}`); 
   },
 };
