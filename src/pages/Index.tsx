@@ -46,7 +46,7 @@ const Index: React.FC = () => {
         <div className="w-[30%]  p-8 px-4  h-auto overflow-y-scroll">
           <Trade
             buyAmount={400}
-            pair={`${selectedSymbol.from_currency}/${selectedSymbol.to_currency}`}
+            pair={`${selectedSymbol.from_currency}${selectedSymbol.to_currency}`}
             sellAmount={500}
           />
 

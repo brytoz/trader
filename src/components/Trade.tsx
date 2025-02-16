@@ -44,7 +44,7 @@ const Trade: React.FC<TradeProps> = ({ sellAmount, buyAmount, pair }) => {
         userId: "5e55de9c-d528-40bc-8120-487586fbda24",
         accountId: "2fdc594b-e9dd-49a7-bcb3-4f53f9b258fe",
         side: buyOrder ? "buy" : "sell",
-        symbol: pair,
+        symbol: pair.toUpperCase(),
         quantity: volume,
         stopLoss: parseFloat(stopLoss) > 0 ? parseFloat(stopLoss) : null,
         takeProfit: parseFloat(takeProfit) > 0 ? parseFloat(takeProfit) : null,
@@ -55,6 +55,7 @@ const Trade: React.FC<TradeProps> = ({ sellAmount, buyAmount, pair }) => {
 
       // socketService.removeListener("i_am_online");
     } catch (error: any) {
+      console.log(error)
       toastService.errorMsg(
         `${
           error.response?.data?.error ||
