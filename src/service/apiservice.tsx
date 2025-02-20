@@ -46,6 +46,10 @@ export const apiService = {
     return api.post("/api/orders/limit", credentials);
   },
 
+  closeTrade: async (credentials: object) => {
+    return api.put("/api/orders/close-trade", credentials);
+  },
+
   //=========== ORDERS ==========
   getOpenOrders: () => {
     return api.get("/api/orders/open");

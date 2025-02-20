@@ -49,7 +49,7 @@ const Login = () => {
         `${
           error.response?.data?.error ||
           error.response?.data?.message ||
-          "Some error occuserede"
+          "Some error occured"
         }`
       );
     }

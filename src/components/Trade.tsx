@@ -55,7 +55,6 @@ const Trade: React.FC<TradeProps> = ({ sellAmount, buyAmount, pair }) => {
 
       // socketService.removeListener("i_am_online");
     } catch (error: any) {
-      console.log(error)
       toastService.errorMsg(
         `${
           error.response?.data?.error ||
