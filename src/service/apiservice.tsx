@@ -50,6 +50,15 @@ export const apiService = {
     return api.put("/api/orders/close-trade", credentials);
   },
 
+  cancelTrade: async (credentials: object) => {
+    return api.put("/api/orders/cancel-trade", credentials);
+  },
+
+  updateStopLossTrade: async (credentials: object) => {
+    return api.put("/api/orders/update-stop-loss", credentials);
+  },
+  
+
   //=========== ORDERS ==========
   getOpenOrders: () => {
     return api.get("/api/orders/open");

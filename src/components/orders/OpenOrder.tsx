@@ -39,13 +39,19 @@ export const OpenOrder = () => {
       await apiService.closeTrade(data);
       toastService.successMsg(`${"Successfully closed."}`);
     } catch (error: any) {
-      toastService.errorMsg(
-        `${
-          error.response?.data?.error ||
-          error.response?.data?.message ||
-          "Cannot close trade right now open orders"
-        }`
-      );
+      if (error.code === "ECONNABORTED") {
+        toastService.errorMsg(
+          "Service Timed-out. Please connect to a strong network"
+        );
+      } else {
+        toastService.errorMsg(
+          `${
+            error.response?.data?.error ||
+            error.response?.data?.message ||
+            "Cannot close trade right now open orders"
+          }`
+        );
+      }
     }
   };
   const { data, isLoading } = useQuery({
@@ -122,11 +128,7 @@ export const OpenOrder = () => {
               <td className="px-4 py-3">
                 <div
                   onClick={() =>
-                    closeTrade(
-                      "5e55de9c-d528-40bc-8120-487586fbda24",
-                      "2fdc594b-e9dd-49a7-bcb3-4f53f9b258fe",
-                      "d689e730-e544-4016-be9d-7e4bf2e25aa9"
-                    )
+                    closeTrade(row.userId,row.accountId,row.orderId)
                   }
                   className="px-2 py-1 rounded text-sm font-medium bg-blue-700 text-blue-200 hover:bg-blue-800 cursor-pointer"
                 >
