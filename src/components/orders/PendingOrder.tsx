@@ -7,6 +7,7 @@ import { ChevronDown, ChevronUp, Plus } from "lucide-react";
 import { useState } from "react";
 import { UpdateStopLossProfit } from "./UpdateStopLossProfit";
 import { toastService } from "../../service/toastMsg";
+import { formatDate } from "../../config/date";
 
 export const PendingOrder = () => {
   const [selectedData, setSelectedData] = useState<object | null>(null);
@@ -18,7 +19,6 @@ export const PendingOrder = () => {
   const fetchPendingOrders = async () => {
     try {
       const response = await apiService.getPendingOrders();
-      console.log("Pending sdsdsf", response);
       return response.data;
     } catch (error) {
       throw new Error("Cannot fetch Pending orders ");
@@ -29,22 +29,18 @@ export const PendingOrder = () => {
     queryFn: fetchPendingOrders,
   });
 
-  if(data){
-    console.log(data)
-  }
-  const cancelTrade = async ( accountId: string, orderId: string, userId: string,) => {
+  const cancelTrade = async ( accountId: string, userId: string, orderId: string,) => {
     toastService.infoMsg(`${"Trying to cancel trade..."}`);
 
     try {
       const data = {
-        accountId,
         userId,
         orderId,
+        accountId,
       };
       await apiService.cancelTrade(data);
       toastService.successMsg(`${"Successfully cancelled."}`);
     } catch (error: any) {
-      console.log(error)
       if (error.code === "ECONNABORTED") {
         toastService.errorMsg(
           "Service Timed-out. Please connect to a strong network"
@@ -115,7 +111,7 @@ export const PendingOrder = () => {
                   </span>
                 </td>
               )}
-              <td className="px-4 py-3 text-xs">{row.createdAt}</td>
+              <td className="px-4 py-3 text-xs">{formatDate(row.createdAt)}</td>
               <td className="px-4 py-3">
                 {!closed ? (
                   <button
@@ -125,12 +121,12 @@ export const PendingOrder = () => {
                     Edit
                   </button>
                 ) : (
-                  <span className="text-xs">{row?.updatedAt}</span>
+                  <span className="text-xs">{formatDate(row?.updatedAt)}</span>
                 )}
               </td>
               <td className="px-4 py-3">
                 <div
-                  onClick={() => cancelTrade(row.account.id,row.userId, row.orderId)}
+                  onClick={() => cancelTrade(row.account.id,row.userId, row.id)}
                   className="px-2 py-1 rounded text-sm font-medium bg-blue-500 text-gray-200 hover:bg-gray-800 cursor-pointer"
                 >
                   Cancel Trade

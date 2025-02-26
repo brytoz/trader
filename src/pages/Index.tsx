@@ -6,6 +6,7 @@ import TradingViewChart from "../components/TradingViewChart";
 import Markets from "../components/Markets";
 // import { fetchMarketData } from "../config/api";
 import BottomNav from "../components/nav/BottomNav";
+import ChartLoader from "../components/loaders/ChartLoader";
 
 
 // import ChartLoader from "../components/loaders/ChartLoader";
@@ -32,11 +33,11 @@ const Index: React.FC = () => {
       <div className="one w-full flex h-[70vh] ">
         <div className="w-[70%] flex h-auto">
           <div className="w-[75%]  py-4">
-            <TradingViewChart
+            {/* <TradingViewChart
               fromCurrency={selectedSymbol.from_currency}
               toCurrency={selectedSymbol.to_currency}
-            />
-            {/* <ChartLoader /> */}
+            /> */}
+            <ChartLoader />
           </div>
           <div className="w-[25%] py-4 h-auto overflow-y-scroll">
             <Markets setSelectedSymbol={setSelectedSymbol} />

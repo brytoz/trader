@@ -5,6 +5,7 @@ import { toastService } from "../service/toastMsg";
 import { ToastContainer } from "react-toastify";
 // import socketService from "../service/socketService";
 import { apiService } from "../service/apiservice";
+import { useTradingAccountStore } from "../store/useTradingAccountStore";
 
 interface TradeProps {
   pair: string;
@@ -37,12 +38,15 @@ const Trade: React.FC<TradeProps> = ({ sellAmount, buyAmount, pair }) => {
     setOpenPrice,
   } = useTradingStore();
 
+  const { tradingAcct } = useTradingAccountStore();
+  
   const enterMarketOrder = async (): Promise<void> => {
+    const userId  = localStorage.getItem("grant");
     toastService.infoMsg(`${"Market order entered"}`);
     try {
       await apiService.placeMarketOrder({
-        userId: "5e55de9c-d528-40bc-8120-487586fbda24",
-        accountId: "2fdc594b-e9dd-49a7-bcb3-4f53f9b258fe",
+        userId: userId,
+        accountId: tradingAcct,
         side: buyOrder ? "buy" : "sell",
         symbol: pair.toUpperCase(),
         quantity: volume,
@@ -53,7 +57,6 @@ const Trade: React.FC<TradeProps> = ({ sellAmount, buyAmount, pair }) => {
         `Market ${buyOrder ? "Buy" : "Sell"} Order placed successfully`
       );
 
-      // socketService.removeListener("i_am_online");
     } catch (error: any) {
       toastService.errorMsg(
         `${
@@ -66,11 +69,12 @@ const Trade: React.FC<TradeProps> = ({ sellAmount, buyAmount, pair }) => {
   };
 
   const enterLimitOrder = async (): Promise<void> => {
+    const userId  = localStorage.getItem("grant");
     toastService.infoMsg(`${"Limit order entered"}`);
     try {
       await apiService.placeLimitOrder({
-        userId: "5e55de9c-d528-40bc-8120-487586fbda24",
-        accountId: "2fdc594b-e9dd-49a7-bcb3-4f53f9b258fe",
+        userId: userId,
+        accountId: tradingAcct,
         side: buyOrder ? "buy" : "sell",
         symbol: pair,
         quantity: volume,
@@ -82,7 +86,6 @@ const Trade: React.FC<TradeProps> = ({ sellAmount, buyAmount, pair }) => {
         `Limit ${buyOrder ? "Buy" : "Sell"} Order placed successfully`
       );
 
-      // socketService.removeListener("i_am_online");
     } catch (error: any) {
       toastService.errorMsg(
         `${

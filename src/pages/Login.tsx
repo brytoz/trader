@@ -12,6 +12,8 @@ const Login = () => {
   const [password, setPassword] = useState<string>("");
   const [disableBtn, setDisableBtn] = useState<boolean>(false);
 
+
+
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -28,11 +30,12 @@ const Login = () => {
     try {
       const response = await apiService.login({ email: newEmail, password });
       localStorage.setItem("token", response.data.token);
+      localStorage.setItem("grant", response.data.id);
       toastService.successMsg("Successfully Logged in. please wait...");
-
       socketService.emit("i_am_online", {
         email: "brytozee",
       });
+      
       setTimeout(() => {
         if (location.state?.from) {
           //   navigate(location.state.from);

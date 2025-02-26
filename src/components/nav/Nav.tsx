@@ -1,8 +1,9 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { TrendingUp, TrendingDown } from "lucide-react";
 import { apiService } from "../../service/apiservice";
 import { useQuery } from "@tanstack/react-query";
+import { useTradingAccountStore } from "../../store/useTradingAccountStore";
 
 interface NavProps {}
 
@@ -17,12 +18,25 @@ const Nav: React.FC<NavProps> = () => {
       throw new Error("Cannot fetch open orders ");
     }
   };
-  const {  isLoading } = useQuery({
+  const { data, isLoading } = useQuery({
     queryKey: ["myProfile"],
     queryFn: fetchProfile,
   });
 
-  // console.log("info", data)
+  const { setTradingAcct } = useTradingAccountStore();
+  const setNewTradAcct = () => {
+    if (data) {
+      setTradingAcct(data.accounts[0].id);
+    }
+  };
+
+  useEffect(() => {
+    setNewTradAcct();
+    return () => {
+      setNewTradAcct();
+    };
+  }, [data]);
+
   return (
     <div className="logo transition-all duration-500     z-10">
       <div className="transition-all duration-500 w-full p-3 flex justify-start items-center px-6  backdrop-blur-md  bg-black/20 text-white  font-bold   shadow-xlg glass2">
@@ -53,7 +67,10 @@ const Nav: React.FC<NavProps> = () => {
             </div>
           </span>
           <span className="">
-            <div title="Available Margin" className=" text-xs hidden md:block transition-all duration-500 ">
+            <div
+              title="Available Margin"
+              className=" text-xs hidden md:block transition-all duration-500 "
+            >
               Margin
             </div>
             <div className="text-xs">$900 {isLoading && 0}</div>

@@ -6,6 +6,7 @@ import { ChevronDown, ChevronUp, Plus } from "lucide-react";
 import { useState } from "react";
 import { UpdateStopLossProfit } from "./UpdateStopLossProfit";
 import { toastService } from "../../service/toastMsg";
+import { formatDate } from "../../config/date";
 
 export const OpenOrder = () => {
   const [selectedData, setSelectedData] = useState<object | null>(null);
@@ -29,7 +30,6 @@ export const OpenOrder = () => {
     orderId: string
   ) => {
     toastService.infoMsg(`${"Trying to close trade..."}`);
-
     try {
       const data = {
         userId,
@@ -112,7 +112,7 @@ export const OpenOrder = () => {
                   </span>
                 </td>
               )}
-              <td className="px-4 py-3 text-xs">{row.createdAt}</td>
+              <td className="px-4 py-3 text-xs">{formatDate(row.createdAt)}</td>
               <td className="px-4 py-3">
                 {!closed ? (
                   <button
@@ -122,13 +122,13 @@ export const OpenOrder = () => {
                     Edit
                   </button>
                 ) : (
-                  <span className="text-xs">{row?.updatedAt}</span>
+                  <span className="text-xs">{formatDate(row?.updatedAt)}</span>
                 )}
               </td>
               <td className="px-4 py-3">
                 <div
                   onClick={() =>
-                    closeTrade(row.userId,row.accountId,row.orderId)
+                    closeTrade(row.userId, row.account.id, row.id)
                   }
                   className="px-2 py-1 rounded text-sm font-medium bg-blue-700 text-blue-200 hover:bg-blue-800 cursor-pointer"
                 >

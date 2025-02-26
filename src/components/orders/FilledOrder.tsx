@@ -3,12 +3,12 @@ import { apiService } from "../../service/apiservice";
 import TableLoader from "../loaders/TableLoader";
 import { usePositionsStore } from "../../store/usePositionsStore";
 import { ChevronDown, ChevronUp, Plus } from "lucide-react";
+import { formatDate } from "../../config/date";
 
 export const FilledOrder = () => {
   const fetchFilledOrders = async () => {
     try {
       const response = await apiService.getFilledOrders();
-      console.log("filled sdsdsf", response);
       return response.data;
     } catch (error) {
       throw new Error("Cannot fetch filled orders ");
@@ -66,14 +66,14 @@ export const FilledOrder = () => {
                   </span>
                 </td>
               )}
-              <td className="px-4 py-3 text-xs">{row.createdAt}</td>
+              <td className="px-4 py-3 text-xs">{formatDate(row.createdAt)}</td>
               <td className="px-4 py-3">
                 {!closed ? (
                   <span className="px-2 py-1 rounded text-sm font-medium bg-yellow-700 text-yellow-200 hover:bg-yellow-800 cursor-pointer">
                     Edit
                   </span>
                 ) : (
-                  <span className="text-xs">{row?.updatedAt}</span>
+                  <span className="text-xs">{formatDate(row?.updatedAt)}</span>
                 )}
               </td>
               <td className="px-4 py-3">
