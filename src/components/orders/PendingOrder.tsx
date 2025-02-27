@@ -7,7 +7,7 @@ import { ChevronDown, ChevronUp, Plus } from "lucide-react";
 import { useState } from "react";
 import { UpdateStopLossProfit } from "./UpdateStopLossProfit";
 import { toastService } from "../../service/toastMsg";
-import { formatDate } from "../../config/date";
+import { formatDate } from "../../config/functions";
 
 export const PendingOrder = () => {
   const [selectedData, setSelectedData] = useState<object | null>(null);

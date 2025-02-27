@@ -38,10 +38,10 @@ const Trade: React.FC<TradeProps> = ({ sellAmount, buyAmount, pair }) => {
     setOpenPrice,
   } = useTradingStore();
 
-  const { tradingAcct } = useTradingAccountStore();
-  
+  const { tradingAcct, tradingAcctLeverage } =
+    useTradingAccountStore();
   const enterMarketOrder = async (): Promise<void> => {
-    const userId  = localStorage.getItem("grant");
+    const userId = localStorage.getItem("grant");
     toastService.infoMsg(`${"Market order entered"}`);
     try {
       await apiService.placeMarketOrder({
@@ -56,7 +56,6 @@ const Trade: React.FC<TradeProps> = ({ sellAmount, buyAmount, pair }) => {
       toastService.successMsg(
         `Market ${buyOrder ? "Buy" : "Sell"} Order placed successfully`
       );
-
     } catch (error: any) {
       toastService.errorMsg(
         `${
@@ -69,7 +68,7 @@ const Trade: React.FC<TradeProps> = ({ sellAmount, buyAmount, pair }) => {
   };
 
   const enterLimitOrder = async (): Promise<void> => {
-    const userId  = localStorage.getItem("grant");
+    const userId = localStorage.getItem("grant");
     toastService.infoMsg(`${"Limit order entered"}`);
     try {
       await apiService.placeLimitOrder({
@@ -85,7 +84,6 @@ const Trade: React.FC<TradeProps> = ({ sellAmount, buyAmount, pair }) => {
       toastService.successMsg(
         `Limit ${buyOrder ? "Buy" : "Sell"} Order placed successfully`
       );
-
     } catch (error: any) {
       toastService.errorMsg(
         `${
@@ -96,7 +94,10 @@ const Trade: React.FC<TradeProps> = ({ sellAmount, buyAmount, pair }) => {
       );
     }
   };
-  
+
+  const currentPrice = 54003.46;
+  console.log(tradingAcctLeverage)
+
   return (
     <div className="w-full rounded h-auto border border-gray-900 shadow p-6 flex flex-col gap-6 bg-gray-900 text-white">
       <ToastContainer />
@@ -174,14 +175,22 @@ const Trade: React.FC<TradeProps> = ({ sellAmount, buyAmount, pair }) => {
         </div>
         <div className="w-full flex justify-between pt-1">
           <div className="text-[0.6rem]">Monetary Equivalent</div>
-          <div className="text-[0.6rem]">1000 USD</div>
+          <div className="text-[0.6rem]">
+            {(volume * currentPrice).toFixed(2)} USD USD
+          </div>
         </div>
       </div>
       {orderType === "market" && (
         <div className="-my-2 flex flex-col  gap-2 bg-gray-800 p-2 rounded-lg   mx-auto w-full text-[0.6rem]">
           <div className="flex justify-between px-1">
             <div>Required Margin</div>
-            <div>$30</div>
+            <div>
+              $
+              {(
+                (volume * currentPrice) /
+                parseFloat(tradingAcctLeverage)
+              ).toFixed(2)}
+            </div>
           </div>
           <div className="flex justify-between px-1">
             <div>Free Margin</div>
@@ -302,7 +311,11 @@ const Trade: React.FC<TradeProps> = ({ sellAmount, buyAmount, pair }) => {
           className=" w-full bg-blue-600 rounded-lg py-2 px-4  font-bold text-center text-white cursor-pointer shadow-sm "
         >
           {buyOrder ? "Buy" : "Sell"} {"    "}
-          {orderType === "market" ? (buyOrder ? buyAmount : sellAmount) :openPrice}
+          {orderType === "market"
+            ? buyOrder
+              ? buyAmount
+              : sellAmount
+            : openPrice}
         </button>
       </div>
     </div>

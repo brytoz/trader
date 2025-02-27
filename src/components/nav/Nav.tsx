@@ -23,10 +23,18 @@ const Nav: React.FC<NavProps> = () => {
     queryFn: fetchProfile,
   });
 
-  const { setTradingAcct } = useTradingAccountStore();
+  const {
+    setTradingAcct,
+    setTradingAcctLeverage,
+    // setTradingAcctBalance,
+    // setTradingAcctEquity,
+    // setTradingAcctAvailableMargin,
+    // setTradingAcctUsedMargin,
+  } = useTradingAccountStore();
   const setNewTradAcct = () => {
     if (data) {
       setTradingAcct(data.accounts[0].id);
+      setTradingAcctLeverage(data.accounts[0].leverage);
     }
   };
 
@@ -36,6 +44,44 @@ const Nav: React.FC<NavProps> = () => {
       setNewTradAcct();
     };
   }, [data]);
+
+  const calculateAll = () => {
+    if (!data || !data.accounts || data.accounts.length === 0) {
+      // console.log("No data or accounts found.");
+      return undefined;
+    }
+
+    const account = data.accounts[0];
+
+    const balance = account.balance.toFixed(2);
+    const equity = account.equity.toFixed(2);
+    const availableMargin = account.availableMargin.toFixed(2);
+    const usedMargin = account.usedMargin.toFixed(2);
+
+    const marginLevel =
+      account.usedMargin !== 0
+        ? ((account.equity / account.usedMargin) * 100).toFixed(2)
+        : "0.00";
+
+    const profitLoss = (account.equity - account.balance).toFixed(2);
+    const isProfit = parseFloat(profitLoss) >= 0;
+
+    // setTradingAcctBalance(balance);
+    // setTradingAcctEquity(equity);
+    // setTradingAcctAvailableMargin(availableMargin);
+    // setTradingAcctUsedMargin(usedMargin);
+    return {
+      balance,
+      equity,
+      availableMargin,
+      usedMargin,
+      marginLevel,
+      profitLoss,
+      isProfit,
+    };
+  };
+
+  const results = calculateAll();
 
   return (
     <div className="logo transition-all duration-500     z-10">
@@ -53,7 +99,7 @@ const Nav: React.FC<NavProps> = () => {
             <div className=" text-xs hidden md:block transition-all duration-500 ">
               Balance
             </div>
-            <div className="text-xs">$900</div>
+            <div className="text-xs">${results && results.balance}</div>
           </span>
 
           <span className="">
@@ -62,8 +108,14 @@ const Nav: React.FC<NavProps> = () => {
               <p>Equity</p>
             </div>
             <div className="text-xs flex items-center">
-              <TrendingDown className="w-4 h-4 mr-1 text-red" /> 900{" "}
-              {isLoading && 0}{" "}
+              {results &&
+              parseFloat(results.equity) < parseFloat(results.balance) ? (
+                <TrendingDown className="w-4 h-4 mr-1 text-red-500" />
+              ) : (
+                <TrendingUp className="w-4 h-4 mr-1 text-green-600" />
+              )}
+              {results && results.equity}
+              {isLoading && "0"}
             </div>
           </span>
           <span className="">
@@ -73,14 +125,19 @@ const Nav: React.FC<NavProps> = () => {
             >
               Margin
             </div>
-            <div className="text-xs">$900 {isLoading && 0}</div>
+            <div className="text-xs">
+              ${results && results.availableMargin} {isLoading && "0"}
+            </div>
           </span>
 
           <span className="">
             <div className=" text-xs hidden md:block transition-all duration-500 ">
               Margin Level
             </div>
-            <div className="text-xs">50% {isLoading && "0%"}</div>
+            <div className="text-xs">
+              {results && results.marginLevel}
+              {isLoading && "0"}%
+            </div>
           </span>
 
           <span className="">
@@ -88,8 +145,12 @@ const Nav: React.FC<NavProps> = () => {
               P/L
             </div>
             <div className="text-xs flex items-center">
-              <TrendingUp className="w-4 h-4 mr-1 text-green-600" /> $900{" "}
-              {isLoading && 0}
+              {results && results.isProfit ? (
+                <TrendingUp className="w-4 h-4 mr-1 text-green-600" />
+              ) : (
+                <TrendingDown className="w-4 h-4 mr-1 text-red-500" />
+              )}
+              ${results && results.profitLoss} {isLoading && "0"}
             </div>
           </span>
 

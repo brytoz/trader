@@ -3,7 +3,7 @@ import { apiService } from "../../service/apiservice";
 import TableLoader from "../loaders/TableLoader";
 import { usePositionsStore } from "../../store/usePositionsStore";
 import { ChevronDown, ChevronUp, Plus } from "lucide-react";
-import { formatDate } from "../../config/date";
+import { calculatePnL, formatDate } from "../../config/functions";
 
 export const FilledOrder = () => {
   const fetchFilledOrders = async () => {
@@ -51,18 +51,19 @@ export const FilledOrder = () => {
                 {row.quantity} <sub className="text-[0.5rem]">lots</sub>{" "}
               </td>
               <td className="px-4 py-3">{row.price}</td>
+              <td className="px-4 py-3">{row.closePrice}</td>
               <td className="px-4 py-3">{row.account.leverage}</td>
               {!pending && (
                 <td className="px-4 py-3">
                   <span
                     className={`flex items-center   py-1 rounded text-sm font-medium  capitalize  ${
-                      Number(row.profitloss) >= 0
+                      calculatePnL(row.price,row.closePrice, row.quantity,row.account.leverage) >= 0
                         ? "text-green-500"
                         : "text-red-500"
                     } `}
                   >
-                    {Number(row.profitloss) >= 0 ? <Plus size={16} /> : ""}
-                    {row.profitloss}$
+                    {calculatePnL(row.price,row.closePrice, row.quantity,row.account.leverage) >= 0 ? <Plus size={16} /> : ""}
+                    ${calculatePnL(row.price,row.closePrice, row.quantity,row.account.leverage).toFixed(2)}
                   </span>
                 </td>
               )}
@@ -76,7 +77,7 @@ export const FilledOrder = () => {
                   <span className="text-xs">{formatDate(row?.updatedAt)}</span>
                 )}
               </td>
-              <td className="px-4 py-3">
+              {/* <td className="px-4 py-3">
                 {closed ? (
                   <span className="px-2 py-1 rounded text-sm font-medium bg-gray-700 text-gray-200 hover:bg-gray-800 cursor-pointer">
                     View
@@ -86,7 +87,7 @@ export const FilledOrder = () => {
                     Close trade
                   </span>
                 )}
-              </td>
+              </td> */}
             </tr>
           ))}
       </tbody>

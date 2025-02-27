@@ -126,11 +126,11 @@ const OrderTable:React.FC  = () => {
                   "Order Type",
                   "Volume",
                   "Price",
+                  "Closed Price",
                   "Leverage",
                   "P/L",
                   "Open At",
                   "Closed At",
-                  "Action",
                 ].map((header) => (
                   <th
                     key={header}
