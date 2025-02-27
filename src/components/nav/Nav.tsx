@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { TrendingUp, TrendingDown } from "lucide-react";
+import { TrendingUp, TrendingDown, CircleUserRound } from "lucide-react";
 import { apiService } from "../../service/apiservice";
 import { useQuery } from "@tanstack/react-query";
 import { useTradingAccountStore } from "../../store/useTradingAccountStore";
+import * as Tooltip from "@radix-ui/react-tooltip";
 
 interface NavProps {}
 
@@ -86,7 +87,7 @@ const Nav: React.FC<NavProps> = () => {
   return (
     <div className="logo transition-all duration-500     z-10">
       <div className="transition-all duration-500 w-full p-3 flex justify-start items-center px-6  backdrop-blur-md  bg-black/20 text-white  font-bold   shadow-xlg glass2">
-        <div className="w-1/5">
+        <div className="w-1/6">
           <Link to="/" className="flex items-center ">
             <span className="ml-2 textbase md:text-2xl font-black logo-color">
               BRYTOZ
@@ -94,7 +95,7 @@ const Nav: React.FC<NavProps> = () => {
           </Link>
         </div>
 
-        <div className="w-4/5 flex justify-end md:justify-around  ">
+        <div className="w-4/6 flex justify-end md:justify-around  ">
           <span className="">
             <div className=" text-xs hidden md:block transition-all duration-500 ">
               Balance
@@ -160,6 +161,36 @@ const Nav: React.FC<NavProps> = () => {
           >
             {!isMenuOpen ? <span> &#9776;</span> : <span> &times;</span>}
           </button>
+        </div>
+
+        <div className="w-1/6 flex items-center pr-4 justify-end">
+          <Tooltip.Provider>
+            <Tooltip.Root>
+              <Tooltip.Trigger asChild>
+                <div className="cursor-pointer">
+                  <CircleUserRound className="w-8 h-8" />
+                </div>
+              </Tooltip.Trigger>
+              <Tooltip.Portal>
+                <Tooltip.Content
+                  className="bg-gray-900 text-white px-3 py-2 rounded-lg shadow-lg text-sm space-y-2"
+                  side="bottom"
+                  align="center"
+                >
+                  <a href="/deposit" className="block hover:text-gray-300">
+                    Deposit
+                  </a>
+                  <a href="/withdraw" className="block hover:text-gray-300">
+                    withdraw
+                  </a>
+                  <a href="/logout" className="block hover:text-red-400">
+                    Logout
+                  </a>
+                  <Tooltip.Arrow className="fill-gray-900" />
+                </Tooltip.Content>
+              </Tooltip.Portal>
+            </Tooltip.Root>
+          </Tooltip.Provider>
         </div>
 
         {/* Mobile Navigatipn */}
