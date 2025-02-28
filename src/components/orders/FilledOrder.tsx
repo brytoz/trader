@@ -30,7 +30,7 @@ export const FilledOrder = () => {
               key={row.id}
               className="border-b border-gray-700 hover:bg-gray-600 transition-all duration-500"
             >
-              <td className="px-4 py-3">{row.id}</td>
+              <td className="px-4 py-3 text-[0.5rem]">{row.id}</td>
               <td className="px-4 py-3">{row.symbol}</td>
               <td className="px-4 py-3  ">
                 <span
@@ -47,11 +47,11 @@ export const FilledOrder = () => {
                 </span>
               </td>
               <td className="px-4 py-3 capitalize">{row.type}</td>
-              <td className="px-4 py-3 flex items-center">
+              <td className="px-4 py-3  ">
                 {row.quantity} <sub className="text-[0.5rem]">lots</sub>{" "}
               </td>
-              <td className="px-4 py-3">{row.price}</td>
-              <td className="px-4 py-3">{row.closePrice}</td>
+              <td className="px-4 py-3">{parseFloat(row.price).toFixed(2)}</td>
+              <td className="px-4 py-3">{parseFloat(row.closePrice).toFixed(2)}</td>
               <td className="px-4 py-3">{row.account.leverage}</td>
               {!pending && (
                 <td className="px-4 py-3">
