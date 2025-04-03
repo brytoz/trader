@@ -3,73 +3,7 @@ import { FilledOrder } from "../orders/FilledOrder";
 import { OpenOrder } from "../orders/OpenOrder";
 import { PendingOrder } from "../orders/PendingOrder";
 
-// export const rows =
-// [
-//   {
-//     id: 1143155,
-//     volume: "0.01",
-//     entry: "23.546",
-//     asset: "BTCETH",
-//     openDate: "1 March",
-//     closeDate: "12 March",
-//     leverage: "1:500",
-//     profitloss: "2.9",
-//     orderType: "Market",
-//     direction: "Buy",
-//   },
-//   {
-//     id: 2235235,
-//     volume: "0.02",
-//     openDate: "1 March",
-//     closeDate: "12 March",
-//     leverage: "1:500",
-//     profitloss: "-2.9",
-//     orderType: "Market",
-//     direction: "Buy",
-//     entry: "23.546",
-//     asset: "BTCETH",
-//   },
-//   {
-//     id: 2342353,
-//     volume: "0.01",
-//     openDate: "1 March",
-//     closeDate: "12 March",
-//     entry: "23.546",
-//     asset: "BTCETH",
-//     leverage: "1:500",
-//     profitloss: "2.9",
-//     orderType: "Market",
-//     direction: "sell",
-//   },
-//   {
-//     id: 2357741,
-//     entry: "23.546",
-//     asset: "BTCETH",
-//     volume: "0.01",
-//     openDate: "1 March",
-//     closeDate: "12 March",
-//     leverage: "1:500",
-//     profitloss: "-2.9",
-//     orderType: "Market",
-//     direction: "Buy",
-//   },
-//   {
-//     id: 2342355,
-//     entry: "23.546",
-//     asset: "BTCETH",
-//     volume: "0.02",
-//     openDate: "1 March",
-//     closeDate: "12 March",
-//     leverage: "1:500",
-//     profitloss: "2.9",
-//     orderType: "Market",
-//     direction: "sell",
-//   },
-// ] || [];
-
-// interface OrderTableProps {
-// data: object[] | []
-// }
+ 
 
 const OrderTable:React.FC  = () => {
   const { closed, pending, open } = usePositionsStore();

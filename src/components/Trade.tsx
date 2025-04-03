@@ -94,9 +94,8 @@ const Trade: React.FC<TradeProps> = ({ sellAmount, buyAmount, pair }) => {
       );
     }
   };
-
+console.log(tradingAcctLeverage)
   const currentPrice = 54003.46;
-  console.log(tradingAcctLeverage)
 
   return (
     <div className="w-full rounded h-auto border border-gray-900 shadow p-6 flex flex-col gap-6 bg-gray-900 text-white">
@@ -186,10 +185,13 @@ const Trade: React.FC<TradeProps> = ({ sellAmount, buyAmount, pair }) => {
             <div>Required Margin</div>
             <div>
               $
-              {(
+              {
+                (volume * currentPrice)}
+{/* 
+{(
                 (volume * currentPrice) /
                 parseFloat(tradingAcctLeverage)
-              ).toFixed(2)}
+              ).toFixed(2)} */}
             </div>
           </div>
           <div className="flex justify-between px-1">

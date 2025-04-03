@@ -62,7 +62,7 @@ import { ChevronDown, ChevronUp, Plus } from "lucide-react";
       orderType: "Market",
       direction: "sell",
     },
-  ] || [];
+  ] ;
 
 const HistoryTable = () => {
 

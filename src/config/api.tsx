@@ -1,5 +1,4 @@
 
-const API_KEY = "58ASQZO5MFVHYIRC";
 
 export type ForexPair = {
   low: string;
